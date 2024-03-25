@@ -6,7 +6,7 @@ body {
 .container {
     width: 100%; /* Adjust as needed */
     height: 100vh; /* Adjust as needed */
-    background-image: url('images/your-image.jpg'); /* Path to your image */
+    background-image: url('images/Mock Site.jpg'); /* Path to your image */
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
