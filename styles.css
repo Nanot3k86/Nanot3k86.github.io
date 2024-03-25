@@ -8,7 +8,6 @@ body {
     height: 100vh; /* Adjust as needed */
     background-image: url('images/Mocksite.png'); /* Path to your image */
     background-size: cover; /* Cover the entire container */
-  .top-center {
     background-position: top center;
     background-repeat: no-repeat; /* Do not repeat the image */
 }
