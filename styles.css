@@ -1,10 +1,17 @@
 /* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+}
+
+.container {
+    width: 100%; /* Adjust as needed */
+    height: 100vh; /* Adjust as needed */
+    background-image: url('images/your-image.jpg'); /* Path to your image */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
 }
 
 h1 {
@@ -13,18 +20,4 @@ h1 {
 
 p {
     color: #666;
-}
-
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: #0056b3;
 }
