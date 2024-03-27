@@ -17,6 +17,13 @@ header {
     margin-bottom: 300px; /* Add margin to push content further down */
 }
 
+@font-face {
+    font-family: 'Orbon';
+    src: url('ORBOBI__ (2021_04_10 19_20_40 UTC).TTF') format('TTF'),
+    font-weight: bold;
+    font-style: normal;
+}
+
 /* Style the navigation links */
 /* Style the header */
 nav {
