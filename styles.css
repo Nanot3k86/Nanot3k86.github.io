@@ -12,8 +12,8 @@ header {
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color for better readability */
     text-align: center;
     padding: 20px;
-    margin-bottom: 300px; /* Add margin to push content further down */
-    margin-top: 200px; /* Bump down the header by 200px */
+    margin-bottom: 200px; /* Add margin to push content further down */
+    margin-top: 150px; /* Bump down the header by 200px */
     font-family: 'ORBON', calibri; /* Use the custom font */
 }
 
