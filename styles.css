@@ -1,17 +1,11 @@
-/* styles.css */
-
 /* Apply background image to the body */
 body {
-    background-image: url('images/header-image.png'); /* Replace 'large-background-image.jpg' with your image file */
+    background-image: url('images/header-image.png'); /* Replace 'header-image.png' with your image file */
     background-size: cover; /* Adjusts the size of the background image */
     background-position: top center; /* Centers the background image */
     color: #fff; /* Default text color */
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-    @media only screen and (max-width: 600px) {
-    /* CSS rules for mobile devices */
-}
-
 }
 
 header {
@@ -27,7 +21,6 @@ header {
 }
 
 /* Style the navigation links */
-/* Style the header */
 nav {
     text-align: center; /* Center the nav horizontally */
     font-family: 'ORBON', sans-serif; /* Use the custom font */
@@ -41,13 +34,13 @@ nav ul {
 
 nav li {
     display: inline;
-    margin-right: 100px;
+    margin-right: 20px; /* Adjusted margin for better spacing */
 }
 
 nav a {
     text-decoration: none;
     color: #fff;
-    font-size: 40px !important; /* Set the font size */
+    font-size: 20px; /* Set the font size */
 }
 
 nav a:hover {
