@@ -18,17 +18,17 @@ header {
 }
 
 @font-face {
-    font-family: 'Orbon';
-    src: url('ORBOBI__ (2021_04_10 19_20_40 UTC).TTF') format('TTF'),
-    font-weight: bold;
-    font-style: normal;
+    font-family: 'OrbonBold'; /* Define the font family name */
+    src: url('ORBOBI__ (2021_04_10 19_20_40 UTC).ttf') format('truetype'); /* Reference the font file */
+    font-weight: bold; /* Specify font weight if applicable */
+    font-style: normal; /* Specify font style if applicable */
 }
 
 /* Style the navigation links */
 /* Style the header */
 nav {
     text-align: center; /* Center the nav horizontally */
-    font-family: "Orbon Bold ITC TT", sans-serif; /* Change the font family */
+    font-family: 'OrbonBold', sans-serif; /* Use the custom font */
 }
 
 nav ul {
