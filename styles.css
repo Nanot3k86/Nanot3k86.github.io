@@ -31,7 +31,6 @@ header {
 nav {
     text-align: center; /* Center the nav horizontally */
     font-family: 'ORBON', sans-serif; /* Use the custom font */
-    font-size: 30px !important;
 }
 
 nav ul {
@@ -48,7 +47,7 @@ nav li {
 nav a {
     text-decoration: none;
     color: #fff;
-    font-size: 40px; /* Set the font size */
+    font-size: 40px !important; /* Set the font size */
 }
 
 nav a:hover {
