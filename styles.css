@@ -13,6 +13,8 @@ header {
     text-align: center;
     padding: 20px;
     margin-bottom: 300px; /* Add margin to push content further down */
+    margin-top: 200px; /* Bump down the header by 200px */
+    font-family: 'ORBON', sans-serif; /* Use the custom font */
 }
 
 @font-face {
