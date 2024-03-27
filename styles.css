@@ -19,7 +19,7 @@ header {
 
 @font-face {
     font-family: 'OrbonBold'; /* Define the font family name */
-    src: url('ORBOBI__ (2021_04_10 19_20_40 UTC).ttf') format('truetype'); /* Reference the font file */
+    src: url('fonts/ORBOBI__ (2021_04_10 19_20_40 UTC).ttf') format('truetype'); /* Adjust the path to the font file */
     font-weight: bold; /* Specify font weight if applicable */
     font-style: normal; /* Specify font style if applicable */
 }
