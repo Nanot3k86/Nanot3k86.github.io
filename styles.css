@@ -1,13 +1,61 @@
+/* styles.css */
+
+/* Apply background image to the body */
 body {
+    background-image: url('images/header-image.png'); /* Replace 'large-background-image.jpg' with your image file */
+    background-size: cover; /* Adjusts the size of the background image */
+    background-position: top center; /* Centers the background image */
+    color: #fff; /* Default text color */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color for better readability */
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 300px; /* Add margin to push content further down */
+}
+
+/* Style the navigation links */
+/* Style the header */
+nav {
+    text-align: center; /* Center the nav horizontally */
+    font-family: "Orbon Bold ITC TT", sans-serif; /* Change the font family */
+}
+
+nav ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    width: 100%; /* Adjust as needed */
-    height: 100vh; /* Adjust as needed */
-    background-image: url('images/Mocksite.png'); /* Path to your image */
-    background-size: cover; /* Cover the entire container */
-    background-position: top center;
-    background-repeat: no-repeat; /* Do not repeat the image */
+nav li {
+    display: inline;
+    margin-right: 100px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav a:hover {
+    color: #ccc;
+}
+
+/* Style the main content sections */
+main {
+    padding: 20px;
+    margin-top: 300px; /* Add margin to push content further down */
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: rgba(51, 51, 51, 0.9); /* Semi-transparent background color for better readability */
+    text-align: center;
+    padding: 10px 0;
 }
