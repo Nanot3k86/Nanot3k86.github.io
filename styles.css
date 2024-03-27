@@ -17,7 +17,7 @@ header {
 
 @font-face {
     font-family: 'ORBON'; /* Define the font family name */
-    src: url('fonts/ORBON.ttf') format('truetype'); /* Adjust the path to the font file */
+    src: url('fonts/ORBON.TTF') format('truetype'); /* Adjust the path to the font file */
 }
 
 /* Style the navigation links */
@@ -40,7 +40,7 @@ nav li {
 nav a {
     text-decoration: none;
     color: #fff;
-    font-size: 200px; /* Set the font size */
+    font-size: 50px; /* Set the font size */
 }
 
 nav a:hover {
