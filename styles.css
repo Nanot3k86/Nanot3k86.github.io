@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color for better readability */
+    background-color: rgba(0, 0, 0, 0); /* transparent background color for better readability */
     text-align: center;
     padding: 20px;
     margin-bottom: 200px; /* Add margin to push content further down */
