@@ -26,27 +26,27 @@ header {
     margin-top: 80px;
 }
 
-/* General Styles */
+/* Adjustments for smaller screens */
 .logo-container {
-    margin-left: 50px; /* Adjust margin for smaller screens */
-    margin-top: 40px;  /* Adjust margin for smaller screens */
+    margin-left: 50px;
+    margin-top: 40px;
 }
 
 .logo-container img {
-    width: 300px; /* Adjust logo size for smaller screens */
+    width: 300px;
 }
 
 header {
-    font-size: 40px; /* Reduce font size for smaller screens */
+    font-size: 40px;
 }
 
 nav a {
-    font-size: 30px; /* Reduce font size for smaller screens */
-    padding: 20px; /* Reduce padding for navigation links */
+    font-size: 30px;
+    padding: 20px;
 }
 
 .nav-container {
-    margin-bottom: 20px; /* Adjust margin for smaller screens */
+    margin-bottom: 20px;
 }
 
 nav {
