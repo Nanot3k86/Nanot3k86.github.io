@@ -13,30 +13,38 @@
 
 header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Horizontally center items */
+    align-items: center; /* Vertically center items */
     padding: 15px;
     margin-bottom: 20px;
     font-family: 'Orbon', calibri;
+    font-size: 70px;
 }
 
 .logo-container {
-    margin-top: 40px;
+    margin-left: 100px;
+    margin-top: 80px;
+}
+
+/* General Styles */
+.logo-container {
+    margin-left: 50px; /* Adjust margin for smaller screens */
+    margin-top: 40px;  /* Adjust margin for smaller screens */
 }
 
 .logo-container img {
-    width: 300px;
+    width: 300px; /* Adjust logo size for smaller screens */
 }
 
-.header-text-container {
-    margin-top: 20px;
-    text-align: center;
+header {
+    font-size: 40px; /* Reduce font size for smaller screens */
 }
 
 .nav-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
+    display: flex; /* Add flexbox */
+    justify-content: center; /* Center items horizontally */
+    margin-bottom: 20px; /* Adjust margin for smaller screens */
 }
 
 nav {
@@ -54,12 +62,13 @@ nav a {
     text-decoration: none;
     color: #fff;
     font-size: 40px;
-    padding: 20px;
+    padding: 20px; /* Adjust padding */
 }
 
 nav a:hover {
     color: #ccc;
 }
+
 
 main {
     padding: 40px;
