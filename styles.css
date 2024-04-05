@@ -63,11 +63,14 @@ nav ul {
 }
 
 nav a {
-    text-decoration: underline;
+    text-decoration: none;
     color: #fff;
     font-size: 40px;
-    padding: 20px; /* Adjust padding */
-    
+    padding: 20px; /* Adjust padding */   
+}
+
+nav li a {
+    text-decoration: underline;
 }
 
 nav a:hover {
