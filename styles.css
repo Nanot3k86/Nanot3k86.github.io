@@ -75,14 +75,14 @@ nav a:hover {
 
 
 main {
-    padding: 20px;
+    padding: 5px;
     max-width: 1200px;
     margin: auto;
     font: 18px/1.5 'Calibri', sans-serif;
     text-align: justify;
     color: rgba(255, 255, 255, 0.9);
-    font-weight: bold;
     text-indent: 20px;
+    letter-spacing: 0.5px; /* Adjust letter-spacing for consistent spacing between words */
 }
 
 main p {
