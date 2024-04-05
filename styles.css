@@ -22,14 +22,18 @@ header {
     font-size: 70px;
 }
 
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
 .logo-container {
-    margin-left: 100px;
     margin-top: 80px;
 }
 
 /* General Styles */
 .logo-container {
-    margin-left: 50px; /* Adjust margin for smaller screens */
+
     margin-top: 40px;  /* Adjust margin for smaller screens */
 }
 
@@ -71,10 +75,10 @@ nav a:hover {
 
 
 main {
-    padding: 40px;
+    padding: 20px;
     max-width: 1200px;
     margin: auto;
-    font: 25px/1.5 'Calibri', sans-serif;
+    font: 18px/1.5 'Calibri', sans-serif;
     text-align: justify;
     color: rgba(255, 255, 255, 0.9);
     font-weight: bold;
