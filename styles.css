@@ -83,6 +83,7 @@ main {
     color: rgba(255, 255, 255, 0.9);
     text-indent: 20px;
     letter-spacing: 0.5px; /* Adjust letter-spacing for consistent spacing between words */
+    line-height: 1.5;
 }
 
 main p {
