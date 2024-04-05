@@ -81,11 +81,11 @@ nav a:hover {
 main {
     padding: 15px;
     max-width: 1200px;
-    margin: auto;
+    margin: ;
     font: 18px/1.5 'Calibri', sans-serif;
     text-align: justify;
     color: rgba(255, 255, 255, 0.9);
-    text-indent: 15px;
+    text-indent: 0px;
     letter-spacing: auto; /* Adjust letter-spacing for consistent spacing between words */
     line-height: auto;
 }
