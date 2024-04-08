@@ -11,7 +11,7 @@
     background: #000 url('images/Header Background.png') top center/auto auto no-repeat;
     color: #fff;
     min-height: 100vh;
-    background-size: cover; /* Add this line to make the background image cover the container */
+    background-size: 100% 100%; /* Stretch the background image to cover the entire viewport */
 }
 
 header {
