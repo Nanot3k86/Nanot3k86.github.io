@@ -7,10 +7,17 @@
 /* General Styles */
 .background-container {
     display: grid;
+    grid-template-rows: auto 50px 1fr; /* Adjust row sizes as needed */
     place-items: center;
     background: #000 url('images/Header Background.png') top center/auto auto no-repeat;
     color: #fff;
     min-height: 100vh;
+}
+
+nav {
+    /* Grid item for the navigation */
+    grid-row: 2; /* Position navigation at the second row */
+
 }
 
 header {
@@ -18,32 +25,56 @@ header {
     flex-direction: column; /* Stack items vertically */
     justify-content: center; /* Horizontally center items */
     align-items: center; /* Vertically center items */
-    padding: 0px;
-    margin-bottom: 0px;
+    padding: 20px;
+    margin: 0; /* Remove margin */
     font-family: 'Orbon', calibri;
     font-size: 50px;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+nav a {
+    font-size: 60px;
+}
 
 .logo-container {
-    margin-top: 10vh; /* Adjust as needed */
     display: flex;
     justify-content: center; /* Horizontally center items */
     align-items: center; /* Vertically center items */
 }
 
+/* Mobile Properties */
+@media (max-width: 768px) {
+    .background-container {
+        background-size: cover;
+        background-position: center;
+    }
+
+    header {
+        font-size: 30px; /* Adjust font size for mobile */
+    }
+    nav a {
+        font-size: 30px;
+    }
+}
+
+/* Shared Styles */
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .logo-container img {
     max-width: 60%; /* Set the maximum width to the container size */
     height: auto;
+    display: block; /* Ensure the image is treated as a block element */
+    margin: 0 auto; /* Center the image horizontally */
 }
 
 .nav-container {
     display: flex; /* Add flexbox */
     justify-content: center; /* Center items horizontally */
-    margin-bottom: 80px; /* Adjust margin for smaller screens */
+    margin: 0; /* Remove margin */
+    margin-bottom: 20px; /* Add bottom margin */
+    padding: 0; /* Remove padding */
 }
 
 nav {
@@ -60,12 +91,8 @@ nav ul {
 nav a {
     text-decoration: none;
     color: #fff;
-    font-size: 40px;
+    text-decoration: underline; /* Add underlines for links */
     padding: 20px; /* Adjust padding */
-}
-
-nav li a {
-    text-decoration: underline;
 }
 
 nav a:hover {
@@ -99,24 +126,25 @@ footer {
 
 /* Carousel Styles */
 .carousel-container {
-    max-width: 280px;
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
+    position: relative; /* Ensure relative positioning for absolute children */
+    max-width: 1200px; /* Set maximum width for the carousel container */
+    margin: 0 auto; /* Center the carousel horizontally */
+    overflow: hidden; /* Hide overflow content */
 }
 
 .carousel {
-    width: 200%;
-    transition: transform 0.5s ease;
-    display: flex;
+    width: 200%; /* Double the width for two images side by side */
+    transition: transform 0.5s ease; /* Add transition for smooth sliding */
+    display: flex; /* Display images side by side */
+    align-items: center;
 }
 
 .carousel-item {
-    flex: 0 0 50%;
+    flex: 0 0 50%; /* Each item takes up 50% width */
 }
 
 .carousel-item img {
-    width: 100%;
+    width: 100%; /* Ensure images take up full width */
     height: auto;
     object-fit: cover;
     object-position: center;
@@ -125,7 +153,7 @@ footer {
 .pagination-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 10px; /* Adjust top margin as needed */
 }
 
 .pagination-item {
@@ -140,3 +168,37 @@ footer {
 .pagination-item.active {
     background-color: #fff;
 }
+
+/* Media query for desktop screens */
+@media (min-width: 769px) {
+    .carousel-container {
+        max-width: 600px; /* Set the maximum width to 50% smaller */
+    }
+
+    .carousel-item {
+        flex: 0 0 50%; /* Each item takes up 50% width */
+    }
+}
+
+.carousel-arrow {
+    position: absolute; /* Position relative to the carousel container */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+    z-index: 1;
+}
+
+.carousel-arrow.prev {
+    left: 0; /* Position at the left edge of carousel */
+}
+
+.carousel-arrow.next {
+    right: 0; /* Position at the right edge of carousel */
+}
+
