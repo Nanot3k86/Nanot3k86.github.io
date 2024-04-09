@@ -202,3 +202,37 @@ footer {
     right: 0; /* Position at the right edge of carousel */
 }
 
+.contact-section {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.contact-section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.contact-section p a {
+    color: #FFD700; /* Set the color to yellow */
+    text-decoration: underline; /* Underline the email link */
+}
+
+.contact-section p a:hover {
+    color: #ccc; /* Change color on hover for better visibility */
+}
+
+.social-media {
+    margin-top: 20px;
+}
+
+.social-link {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    color: #ccc;
+}
