@@ -35,11 +35,13 @@ header {
     align-items: center;
 }
 
-/* Mobile Properties */
 @media (max-width: 768px) {
     .background-container {
-        background-size: cover;
+        background-size: contain;
         background-position: center;
+        width: 100%; /* Ensure the container fills the entire viewport width */
+        height: 100%; /* Ensure the container fills the entire viewport height */
+        overflow: hidden; /* Prevent overflow */
     }
 
     header {
@@ -47,6 +49,9 @@ header {
     }
     nav a {
         font-size: 30px;
+    }
+    nav {
+        transform: scale(0.75); /* Scale down by 25% */
     }
 }
 
