@@ -37,8 +37,8 @@ header {
 
 @media (max-width: 768px) {
     .background-container {
-        background-size: contain;
-        background-position: center;
+        background-size: auto; /* Set background size to auto */
+        background-position: center; /* Center the background image */
         width: 100%; /* Ensure the container fills the entire viewport width */
         height: 100%; /* Ensure the container fills the entire viewport height */
         overflow: hidden; /* Prevent overflow */
@@ -47,9 +47,17 @@ header {
     header {
         font-size: 30px;
     }
+
     nav a {
-        font-size: 30px;
+        font-size: 20px; /* Decrease font size for nav links */
+        padding: 10px 20px; /* Decrease padding for nav links */
     }
+
+    .dropdown-content a {
+        font-size: 18px; /* Decrease font size for dropdown links */
+        padding: 8px 12px; /* Decrease padding for dropdown links */
+    }
+
     nav {
         transform: scale(0.75); /* Scale down by 25% */
     }
@@ -71,8 +79,9 @@ body {
 .nav-container {
     display: flex;
     justify-content: center;
+    align-items: center; /* Center vertically */
     margin: 0;
-    margin-bottom: 20px;
+    margin-bottom: 80px;
     padding: 0;
 }
 
@@ -85,7 +94,8 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    align-items: center; /* Center align the buttons */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
 }
 
 nav a {
@@ -130,6 +140,7 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
+    margin-top: 50px;
 }
 
 .carousel {
@@ -244,6 +255,11 @@ footer {
 }
 
 /* Add styles for dropdown menus */
+.dropdown-container {
+    position: relative;
+    z-index: 1001; /* Ensure dropdown container is above carousel */
+}
+
 .dropdown {
     position: relative;
     display: inline-block;
@@ -255,8 +271,11 @@ footer {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 1001; /* Ensure dropdown content is above carousel */
+    overflow: visible; /* Ensure dropdown content is visible */
 }
+
+/* Other dropdown styles */
 
 .dropdown-content a {
     color: black;
@@ -264,7 +283,7 @@ footer {
     text-decoration: none;
     display: block;
     font-family: 'Orbon', sans-serif;
-    font-size: 30px;
+    font-size: 20px; /* Decrease font size for dropdown links */
 }
 
 .dropdown-content a:hover {
@@ -279,8 +298,8 @@ footer {
 .dropbtn {
     background-color: #555;
     color: white;
-    padding: 20px 30px;
-    font-size: 30px;
+    padding: 10px 20px; /* Decrease padding for the dropdown button */
+    font-size: 20px; /* Decrease font size for the dropdown button */
     border: none;
     cursor: pointer;
     border-radius: 8px;
@@ -294,7 +313,6 @@ footer {
 /* Gradient Background for Buttons */
 .dropbtn {
     background: linear-gradient(45deg, #4CAF50, #2196F3);
-    /* Other button styles */
 }
 
 /* Hover Effects */
@@ -312,15 +330,11 @@ footer {
 
 /* Subtle Animations */
 .dropdown-content {
-    display: none;
-    position: absolute;
-    /* Other dropdown styles */
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
     opacity: 1;
 }
 
