@@ -49,7 +49,7 @@ header {
     }
 
     nav a {
-        font-size: 20px; /* Decrease font size for nav links */
+        font-size: 25px; /* Decrease font size for nav links */
         padding: 10px 20px; /* Decrease padding for nav links */
     }
 
@@ -102,7 +102,7 @@ nav a {
     text-decoration: none;
     color: #fff;
     padding: 20px 30px;
-    font-size: 32px;
+    font-size: 40px;
 }
 
 nav a:hover {
@@ -116,8 +116,19 @@ main {
     font: 18px/1.5 'Calibri', sans-serif;
     text-align: left;
     color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Gradient background */
+    border-radius: 15px; /* Rounded corners */
+
 }
 
+.text-container {
+    margin: 0 20px; /* Apply margin to the text container */
+}
+.text-container p {
+    text-align: justify; /* Align text */
+    word-wrap: break-word;
+    letter-spacing: -0.5px;
+}
 main p {
     letter-spacing: 0.5px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -296,7 +307,7 @@ footer {
 
 /* Style buttons */
 .dropbtn {
-    background-color: #555;
+    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Gradient background */
     color: white;
     padding: 10px 20px; /* Decrease padding for the dropdown button */
     font-size: 20px; /* Decrease font size for the dropdown button */
@@ -306,16 +317,6 @@ footer {
     font-family: 'Orbon', sans-serif;
 }
 
-.dropbtn:hover {
-    background-color: #777;
-}
-
-/* Gradient Background for Buttons */
-.dropbtn {
-    background: linear-gradient(45deg, #4CAF50, #2196F3);
-}
-
-/* Hover Effects */
 .dropbtn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
