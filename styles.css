@@ -23,18 +23,131 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     margin: 0;
     font-family: 'Orbon', calibri;
     font-size: 50px;
+}
+
+/* Header text hover effect */
+header h1 {
+    position: relative;
+}
+
+header h1::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Same gradient as your buttons */
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+header:hover h1::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+header:hover h1 {
+
+    text-shadow: 0 0 20px #FFA500; /* Adjust shadow if needed */
+}
+
+/* Shared Styles */
+body {
+    margin: 0;
+    padding: 0;
 }
 
 .logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 80px;
 }
 
+.logo-container img {
+    max-width: 60%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 80px;
+    padding: 0;
+}
+
+nav {
+    font-family: 'Orbon', calibri;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    padding: 20px 30px;
+    font-size: 40px;
+}
+
+nav a:hover {
+    color: #ccc;
+}
+
+main {
+    padding: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font: 18px/1.5 'Calibri', sans-serif;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(45deg, rgba(255, 165, 0, 0.7), rgba(255, 105, 180, 0.7)); /* Gradient background with opacity */
+    border-radius: 15px; /* Rounded corners */
+}
+
+.text-container {
+    margin: 0 20px; /* Apply margin to the text container */
+}
+
+.text-container p {
+    text-align: justify; /* Align text */
+    word-wrap: break-word;
+    letter-spacing: -0.5px;
+}
+
+main p {
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+footer {
+    background-color: rgba(51, 51, 51, 0.9);
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+}
+
+/* Media query for smaller screens */
 @media (max-width: 768px) {
     .background-container {
         background-size: auto; /* Set background size to auto */
@@ -63,92 +176,10 @@ header {
     }
 }
 
-/* Shared Styles */
-body {
-    margin: 0;
-    padding: 0;
-}
-
-.logo-container img {
-    max-width: 60%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center vertically */
-    margin: 0;
-    margin-bottom: 80px;
-    padding: 0;
-}
-
-nav {
-    font-family: 'Orbon', calibri;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    padding: 20px 30px;
-    font-size: 40px;
-}
-
-nav a:hover {
-    color: #ccc;
-}
-
-main {
-    padding: 15px;
-    max-width: 1200px;
-    margin: 0 auto;
-    font: 18px/1.5 'Calibri', sans-serif;
-    text-align: left;
-    color: rgba(255, 255, 255, 0.9);
-    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Gradient background */
-    border-radius: 15px; /* Rounded corners */
-
-}
-
-.text-container {
-    margin: 0 20px; /* Apply margin to the text container */
-}
-.text-container p {
-    text-align: justify; /* Align text */
-    word-wrap: break-word;
-    letter-spacing: -0.5px;
-}
-main p {
-    letter-spacing: 0.5px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-section {
-    margin-bottom: 20px;
-}
-
-footer {
-    background-color: rgba(51, 51, 51, 0.9);
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-}
-
 /* Carousel Styles */
 .carousel-container {
     position: relative;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     overflow: hidden;
     margin-top: 50px;
@@ -189,17 +220,6 @@ footer {
 
 .pagination-item.active {
     background-color: #fff;
-}
-
-/* Media query for desktop screens */
-@media (min-width: 769px) {
-    .carousel-container {
-        max-width: 600px;
-    }
-
-    .carousel-item {
-        flex: 0 0 50%;
-    }
 }
 
 .carousel-arrow {
