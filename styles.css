@@ -12,6 +12,7 @@
     background: #000 url('images/Header Background.png') top center/auto auto no-repeat;
     color: #fff;
     min-height: 100vh;
+    background-attachment: fixed;
 }
 
 nav {
@@ -53,7 +54,6 @@ header:hover h1::before {
 }
 
 header:hover h1 {
-
     text-shadow: 0 0 20px #FFA500; /* Adjust shadow if needed */
 }
 
@@ -103,7 +103,7 @@ nav a {
     text-decoration: none;
     color: #fff;
     padding: 20px 30px;
-    font-size: 40px;
+    font-size: 30px; /* Adjusted font size for nav items */
 }
 
 nav a:hover {
@@ -121,58 +121,128 @@ main {
     border-radius: 15px; /* Rounded corners */
 }
 
-.text-container {
-    margin: 0 20px; /* Apply margin to the text container */
+/* Adjust padding and font size for nav buttons */
+.nav-container nav ul {
+    display: flex;
+    gap: 30px;
 }
 
-.text-container p {
-    text-align: justify; /* Align text */
-    word-wrap: break-word;
-    letter-spacing: -0.5px;
+/* Add styles for dropdown menus */
+.dropdown-container {
+    position: relative;
+    z-index: 1001; /* Ensure dropdown container is above carousel */
 }
 
-main p {
-    letter-spacing: 0.5px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-section {
-    margin-bottom: 20px;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1001; /* Ensure dropdown content is above carousel */
+    overflow: visible; /* Ensure dropdown content is visible */
 }
 
-footer {
-    background-color: rgba(51, 51, 51, 0.9);
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Orbon', sans-serif;
+    font-size: 30px; /* Adjusted font size for dropdown links */
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Style buttons */
+.dropbtn {
+    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Gradient background */
+    color: white;
+    padding: 10px 20px; /* Decrease padding for the dropdown button */
+    font-size: 30px; /* Adjusted font size for drop buttons */
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-family: 'Orbon', sans-serif;
+}
+
+.dropbtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Borders and Shadows */
+.dropbtn {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle Animations */
+.dropdown-content {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+}
+
+/* Iconography */
+.dropbtn::after {
+    content: '\25BC'; /* Unicode down arrow */
+    margin-left: 5px;
+}
+
+/* Contrast and Color */
+.dropbtn {
+    color: #fff;
+}
+
+/* Remove arrows for specific buttons */
+.nav-container nav ul .dropbtn::after {
+    content: none; /* Remove the down arrow */
 }
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
     .background-container {
-        background-size: auto; /* Set background size to auto */
-        background-position: center; /* Center the background image */
-        width: 100%; /* Ensure the container fills the entire viewport width */
-        height: 100%; /* Ensure the container fills the entire viewport height */
-        overflow: hidden; /* Prevent overflow */
-    }
+    display: grid;
+    grid-template-rows: auto 50px 1fr;
+    place-items: center;
+    background: #000 url('images/Header Background.png') top center/auto auto no-repeat;
+    color: #fff;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
 
     header {
         font-size: 30px;
     }
 
+    /* Nav and dropdown font sizes remain unchanged */
+    .dropdown-content a,
     nav a {
-        font-size: 25px; /* Decrease font size for nav links */
-        padding: 10px 20px; /* Decrease padding for nav links */
-    }
-
-    .dropdown-content a {
-        font-size: 18px; /* Decrease font size for dropdown links */
-        padding: 8px 12px; /* Decrease padding for dropdown links */
+        font-size: 25px;
     }
 
     nav {
         transform: scale(0.75); /* Scale down by 25% */
+    }
+
+    .dropbtn {
+        font-size: 20px; /* Adjusted font size for smaller screens */
     }
 }
 
@@ -277,100 +347,4 @@ footer {
 
 .social-link:hover {
     color: #ccc;
-}
-
-/* Adjust padding and font size for nav buttons */
-.nav-container nav ul {
-    display: flex;
-    gap: 30px;
-}
-
-/* Add styles for dropdown menus */
-.dropdown-container {
-    position: relative;
-    z-index: 1001; /* Ensure dropdown container is above carousel */
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1001; /* Ensure dropdown content is above carousel */
-    overflow: visible; /* Ensure dropdown content is visible */
-}
-
-/* Other dropdown styles */
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    font-family: 'Orbon', sans-serif;
-    font-size: 20px; /* Decrease font size for dropdown links */
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Style buttons */
-.dropbtn {
-    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Gradient background */
-    color: white;
-    padding: 10px 20px; /* Decrease padding for the dropdown button */
-    font-size: 20px; /* Decrease font size for the dropdown button */
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-family: 'Orbon', sans-serif;
-}
-
-.dropbtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Custom Borders and Shadows */
-.dropbtn {
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Subtle Animations */
-.dropdown-content {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.dropdown:hover .dropdown-content {
-    opacity: 1;
-}
-
-/* Iconography */
-.dropbtn::after {
-    content: '\25BC'; /* Unicode down arrow */
-    margin-left: 5px;
-}
-
-/* Contrast and Color */
-.dropbtn {
-    color: #fff;
-}
-
-/* Remove arrows for specific buttons */
-.nav-container nav ul .dropbtn::after {
-    content: none; /* Remove the down arrow */
 }
