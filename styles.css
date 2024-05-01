@@ -93,6 +93,7 @@ nav a {
     color: #fff;
     font-size: 30px;
     text-decoration: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 nav a:hover {
@@ -105,22 +106,27 @@ main {
     justify-content: center;
     align-items: center;
     padding: 15px;
+    height: 100vh;
     max-width: 800px;
-    margin: 0px auto 200px;
+    margin: 0px auto; /* Removed margin-bottom */
     font: 18px/1.5 'Calibri', sans-serif;
     text-align: left;
     color: rgba(255, 255, 255, 0.9);
     background: linear-gradient(45deg, rgba(255, 165, 0, 0.7), rgba(255, 105, 180, 0.7));
     border-radius: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-container {
     position: relative;
-    max-width: 500px;
-    margin: 0 auto;
+    top: 50%; /* Adjust vertical positioning */
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 700px;
     overflow: hidden;
     margin-top: 50px;
 }
+
 
 .carousel {
     width: 200%;
@@ -141,9 +147,14 @@ main {
 }
 
 .pagination-container {
+    position: absolute;
+    bottom: -30px; /* Adjust as needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    width: 100%; /* Full width */
+    z-index: 1; /* Ensure it's above the carousel */
 }
 
 .pagination-item {
@@ -163,7 +174,7 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to top right, #008080, #7FFF00);
     color: #fff;
     border: none;
     outline: none;
@@ -171,6 +182,8 @@ main {
     padding: 10px;
     font-size: 24px;
     z-index: 1;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0 -20px; /* Adjust the margin as needed */
 }
 
 .carousel-arrow.prev {
@@ -190,20 +203,21 @@ main {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1001;
     overflow: visible;
+    background: linear-gradient(to top right, #4d94ff, #8ae68a); /* Blue to light green gradient */
 }
 
 .dropdown-content a {
-    color: black;
+    color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     font-family: 'Orbon', sans-serif;
     font-size: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .dropdown-content a:hover {
@@ -227,6 +241,7 @@ main {
     border: 2px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .dropbtn:hover {
@@ -257,6 +272,7 @@ main {
     padding: 5px;
     text-align: center;
     width: 100%;
+    margin-top: 50px;
 }
 
 .footer a {
@@ -299,8 +315,8 @@ main {
     text-decoration: none;
 }
 
-.social-link:hover {
-    color: #ccc;
+    .social-link:hover {
+        color: #ccc;
 }
 
 /* Media queries */
@@ -333,6 +349,21 @@ main {
     nav a {
     font-size: 25px;
     }
+.carousel-arrow {
+    position: absolute;
+    top: 75%;
+    transform: translateY(-50%);
+    background: linear-gradient(to top right, #008080, #7FFF00);
+    color: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+    z-index: 1;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0 0px; /* Adjust the margin as needed */
+}
 
     .dropbtn {
         font-size: 25px;
@@ -342,7 +373,7 @@ main {
 
     main {
         align-self: start;
-        width: 350px;
+        width: 300px;
         margin: 50px auto 200px;
     }
 
@@ -372,30 +403,34 @@ main {
     .nav-container ul {
         display: flex;
         flex-direction: column;
-}
+    }
 
     main {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
+        min-width: 700px;
     }
 
     .dropdown-content {
-        display: none;
-        position: absolute;
+        position: relative;
         background-color: #f9f9f9;
-        min-width: 160px;
+        width: max-content; /* Adjust width to fit content */
         box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
         z-index: 1001;
-        overflow: visible;
-        left: 185%;
-        top: 87px;
-        transform: translateX(-100%);
+        left: 46.5%;
+        top: 100%;
+        transform: translateX(-50%); /* Center horizontally */
     }
 
     .dropbtn {
         width: 80%;
         border-radius: 0;
     }
+
+    .portfolio-button {
+        position: relative;
+    }
+
 }
