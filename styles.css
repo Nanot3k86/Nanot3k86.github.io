@@ -5,7 +5,6 @@
 }
 
 /* General Styles */
-
 .background-container {
     display: flex;
     grid-template-rows: auto 50px 1fr;
@@ -13,7 +12,7 @@
     flex-direction: column;
     color: #fff;
     min-height: 100vh;
-    background-attachment: relative;
+    background-attachment: absolute;
 }
 
 header {
@@ -103,12 +102,13 @@ nav a:hover {
 main {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15px;
     height: 100vh;
     max-width: 800px;
-    margin: 0px auto; /* Removed margin-bottom */
+    margin: 0 auto; /* Removed margin-bottom */
     font: 18px/1.5 'Calibri', sans-serif;
     text-align: left;
     color: rgba(255, 255, 255, 0.9);
@@ -119,14 +119,11 @@ main {
 
 .carousel-container {
     position: relative;
-    top: 50%; /* Adjust vertical positioning */
     left: 50%;
     transform: translate(-50%, 0);
     max-width: 700px;
     overflow: hidden;
-    margin-top: 50px;
 }
-
 
 .carousel {
     width: 200%;
@@ -148,13 +145,13 @@ main {
 
 .pagination-container {
     position: absolute;
-    bottom: -30px; /* Adjust as needed */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     width: 100%; /* Full width */
     z-index: 1; /* Ensure it's above the carousel */
+    bottom: 0; /* Position at the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
 }
 
 .pagination-item {
@@ -174,7 +171,7 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: linear-gradient(to top right, #008080, #7FFF00);
+    background: linear-gradient(45deg, #FFA500, #FF69B4); /* Same gradient as dropbtn */
     color: #fff;
     border: none;
     outline: none;
@@ -249,6 +246,15 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+@media (hover: none) {
+    .dropbtn {
+        user-select: none;
+        -webkit-user-select: none; /* For Safari */
+        -moz-user-select: none; /* For Firefox */
+        -ms-user-select: none; /* For IE/Edge */
+    }
+}
+
 /* Subtle Animations */
 .dropdown-content {
     opacity: 0;
@@ -267,7 +273,7 @@ main {
 .footer {
     position: relative;
     bottom: 0;
-    background-color: #333; /* Background color for the footer */
+    background: linear-gradient(to top, #333, #000); /* Sidebar gradient background */
     color: #fff; /* Text color for the footer */
     padding: 5px;
     text-align: center;
@@ -315,8 +321,8 @@ main {
     text-decoration: none;
 }
 
-    .social-link:hover {
-        color: #ccc;
+.social-link:hover {
+    color: #ccc;
 }
 
 /* Media queries */
@@ -331,7 +337,7 @@ main {
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
         flex-direction: column; /* Stack items vertically */
-        position: relative
+        position: relative;
         top: 0;
         left: 0;
         height: 100%;
@@ -347,23 +353,14 @@ main {
     }
     
     nav a {
-    font-size: 25px;
+        font-size: 25px;
     }
-.carousel-arrow {
-    position: absolute;
-    top: 75%;
-    transform: translateY(-50%);
-    background: linear-gradient(to top right, #008080, #7FFF00);
-    color: #fff;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 10px;
-    font-size: 24px;
-    z-index: 1;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin: 0 0px; /* Adjust the margin as needed */
-}
+
+    .carousel-arrow {
+        top: 75%;
+        transform: translateY(-50%);
+        margin: 0 0px; /* Adjust the margin as needed */
+    }
 
     .dropbtn {
         font-size: 25px;
@@ -371,19 +368,8 @@ main {
         width: 75px;
     }
 
-    main {
-        align-self: start;
-        width: 300px;
-        margin: 50px auto 200px;
-    }
-
-    .carousel-container {
-        justify-content: center;
-        max-width: 350px;
-    }
-
     .dropdown-content a {
-    font-size: 25px;
+        font-size: 25px;
     }
 }
 
@@ -396,7 +382,7 @@ main {
         left: 0;
         height: 100%;
         width: 180px;
-        background-color: #333;
+        background: linear-gradient(to bottom, #333, #000); /* Sidebar gradient background */
         border-radius: 0;
     }
 
@@ -432,5 +418,4 @@ main {
     .portfolio-button {
         position: relative;
     }
-
 }
