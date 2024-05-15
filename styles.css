@@ -100,6 +100,7 @@ nav a:hover {
 }
 
 main {
+    position: relative; /* Add this line */
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -150,8 +151,9 @@ main {
     width: 100%; /* Full width */
     z-index: 1; /* Ensure it's above the carousel */
     bottom: 0; /* Position at the bottom */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%);
+    left: 0; /* Align to the left */
+    right: 0; /* Align to the right */
+    margin: 0 auto; /* Center horizontally */
 }
 
 .pagination-item {
@@ -357,7 +359,7 @@ main {
     }
 
     .carousel-arrow {
-        top: 75%;
+        top: 50%;
         transform: translateY(-50%);
         margin: 0 0px; /* Adjust the margin as needed */
     }
