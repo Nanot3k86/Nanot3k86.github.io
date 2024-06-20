@@ -327,6 +327,22 @@ main {
     color: #ccc;
 }
 
+/* Styles for sidebar image container */
+.sidebar-image-container {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.sidebar-image-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 /* Media queries */
 @media (max-width: 768px) {
     
@@ -345,10 +361,10 @@ main {
         height: 100%;
         border-radius: 0;
     }
-    
-    .logo-container img {
+
+.logo-container img {
     max-width: 60%;
-}
+    }
 
     nav ul {
         display: flex;
@@ -376,6 +392,14 @@ main {
 
     .dropdown-content a {
         font-size: 25px;
+    }
+
+    .sidebar-image-container {
+        display: none;
+    }
+
+    main {
+        padding-top: 20px; /* Add padding to ensure space below the nav bar */
     }
 }
 
