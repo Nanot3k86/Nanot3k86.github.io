@@ -420,8 +420,8 @@ main {
         padding-top: 20px;
     }
     
-        .main-image-container img {
-        max-width: 120%;
+    .main-image-container img {
+        max-width: 110%;
         height: auto;
     }
 }
