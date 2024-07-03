@@ -421,7 +421,7 @@ main {
     }
     
         .main-image-container img {
-        max-width: 100%;
+        max-width: 120%;
         height: auto;
     }
 }
