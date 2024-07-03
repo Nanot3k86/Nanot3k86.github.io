@@ -446,6 +446,7 @@ main {
         position: relative;
         min-width: 700px;
         padding-top: 20px; /* Add padding to ensure space below the nav bar */
+        font-size: 22px; /* Adjust the value as needed */
     }
 
     .dropdown-content {
