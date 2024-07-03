@@ -74,6 +74,11 @@ body {
     margin: 0 auto;
 }
 
+.main-image-container img {
+        width: 100%;
+        height: auto;
+    }
+
 nav ul {
     list-style: none;
     margin: 0;
