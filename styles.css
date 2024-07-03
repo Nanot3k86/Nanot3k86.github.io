@@ -123,7 +123,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    margin: 20px 0; /* Adjust as needed */
     width: 100%; /* Ensure full width to center within parent */
 }
 
