@@ -125,7 +125,9 @@ main {
 }
 
 .main-image-container img {
-    width: 200%;
+    display: block;
+    margin: 0 auto;
+    width: 200%; /* Double the size */
     height: auto;
 }
 
