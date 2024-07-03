@@ -120,13 +120,14 @@ main {
 }
 
 .main-image-container {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 20px 0;
+    width: 100%; /* Ensure full width to center within parent */
 }
 
 .main-image-container img {
-    display: block;
-    margin: 0 auto;
     width: 200%; /* Double the size */
     height: auto;
 }
