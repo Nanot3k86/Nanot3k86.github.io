@@ -419,6 +419,11 @@ main {
     main {
         padding-top: 20px;
     }
+    
+        .main-image-container img {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 @media (min-width: 769px) {
