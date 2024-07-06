@@ -5,8 +5,18 @@
 }
 
 /* General Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    font: 18px/1.5 'Calibri', sans-serif;
+    color: rgba(255, 255, 255, 0.9);
+    background: #000;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
 .background-container {
     display: flex;
+    align-items: center;
     flex-direction: column;
     color: #fff;
     min-height: 100vh;
@@ -26,6 +36,7 @@ header {
 
 header h1 {
     position: relative;
+    white-space: nowrap;
 }
 
 header h1::before {
@@ -40,6 +51,19 @@ header h1::before {
     transform-origin: bottom right;
     transition: transform 0.3s ease;
 }
+    
+    .header-text-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-right: 120px;
+        height: 100%;
+        border-radius: 0;
+    }
 
 header:hover h1::before {
     transform: scaleX(1);
@@ -50,39 +74,25 @@ header:hover h1 {
     text-shadow: 0 0 20px #FFA500;
 }
 
-/* Shared Styles */
-body {
-    margin: 0;
-    padding: 0;
-    font: 18px/1.5 'Calibri', sans-serif;
-    color: rgba(255, 255, 255, 0.9);
-    background: #000;
-    overflow-x: hidden; /* This prevents horizontal scrolling */
-}
-
-.logo-container {
+/* Navigation */
+.nav-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 180px;
+    background: linear-gradient(to bottom, #333, #000); /* Sidebar gradient background */
+    border-radius: 0;
 }
-
-.logo-container img {
-    max-width: 30%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
-
-.main-image-container img {
-        width: 100%;
-        height: auto;
-    }
 
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 nav li {
@@ -102,6 +112,7 @@ nav a:hover {
     color: #ccc;
 }
 
+/* Main Content */
 main {
     position: relative;
     flex: 1;
@@ -112,9 +123,7 @@ main {
     padding: 15px;
     max-width: 800px;
     margin: 0 auto;
-    font: 18px/1.5 'Calibri', sans-serif;
     text-align: center;
-    color: rgba(255, 255, 255, 0.9);
     background: linear-gradient(45deg, rgba(255, 165, 0, 0.7), rgba(255, 105, 180, 0.7)); /* Orange background */
     border-radius: 15px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -124,19 +133,41 @@ main {
     background: none; /* Remove the background */
 }
 
+/* Logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.logo-container img {
+    max-width: 30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.side-image {
+    width: 300px; /* Adjust size as needed */
+    height: auto;
+}
+
+/* Image Container */
 .main-image-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0; /* Adjust as needed */
-    width: 100%; /* Ensure full width to center within parent */
+    margin: 20px 0;
+    width: 100%;
 }
 
 .main-image-container img {
-    width: 200%; /* Double the size */
+    width: 100%;
     height: auto;
 }
 
+/* Carousel */
 .carousel-container {
     position: relative;
     left: 50%;
@@ -163,31 +194,6 @@ main {
     object-position: center;
 }
 
-.pagination-container {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    width: 100%; /* Full width */
-    z-index: 1; /* Ensure it's above the carousel */
-    bottom: 0; /* Position at the bottom */
-    left: 0; /* Align to the left */
-    right: 0; /* Align to the right */
-    margin: 0 auto; /* Center horizontally */
-}
-
-.pagination-item {
-    width: 10px;
-    height: 10px;
-    background-color: #ccc;
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-.pagination-item.active {
-    background-color: #fff;
-}
-
 .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -212,7 +218,33 @@ main {
     right: 0;
 }
 
-/* Add styles for dropdown menus */
+/* Pagination */
+.pagination-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.pagination-item {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination-item.active {
+    background-color: #fff;
+}
+
+/* Dropdown Menus */
 .dropdown-container {
     position: relative;
     z-index: 1001;
@@ -226,6 +258,8 @@ main {
     z-index: 1001;
     overflow: visible;
     background: linear-gradient(to top right, #4d94ff, #8ae68a); /* Blue to light green gradient */
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .dropdown-content a {
@@ -244,9 +278,10 @@ main {
 
 .dropdown:hover .dropdown-content {
     display: block;
+    opacity: 1;
 }
 
-/* Style buttons */
+/* Buttons */
 .dropbtn {
     background: linear-gradient(45deg, #FFA500, #FF69B4);
     color: white;
@@ -276,21 +311,7 @@ main {
     }
 }
 
-/* Subtle Animations */
-.dropdown-content {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.dropdown:hover .dropdown-content {
-    opacity: 1;
-}
-
-/* Contrast and Color */
-.dropbtn {
-    color: #fff;
-}
-
+/* Footer */
 .footer {
     position: relative;
     bottom: 0;
@@ -311,6 +332,7 @@ main {
     color: #ccc;
 }
 
+/* Contact Section */
 .contact-section {
     text-align: center;
     padding: 50px 0;
@@ -346,12 +368,12 @@ main {
     color: #ccc;
 }
 
-/* Styles for sidebar image container */
+/* Sidebar Image Container */
 .sidebar-image-container {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    margin-top: 20px;
+    margin-top: 40px;
     text-align: center;
 }
 
@@ -362,10 +384,15 @@ main {
     margin: 0 auto;
 }
 
-/* Media queries */
+/* Media Queries */
 @media (max-width: 768px) {
-    header {
+    
+header {
         font-size: 30px;
+    }
+
+.header-text-container {
+        margin-right: 80px;
     }
 
     .nav-container {
@@ -379,15 +406,17 @@ main {
         height: 100%;
         border-radius: 0;
     }
-
+    
     .logo-container img {
         max-width: 60%;
     }
+ 
+    .side-image {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+}
 
     nav ul {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: row;
         gap: 20px;
     }
@@ -397,9 +426,7 @@ main {
     }
 
     .carousel-arrow {
-        top: 50%;
-        transform: translateY(-50%);
-        margin: 0 0px;
+        margin: 0;
     }
 
     .dropbtn {
@@ -421,8 +448,7 @@ main {
     }
     
     .main-image-container img {
-        max-width: 100%;
-        height: auto;
+        max-width: auto;
     }
 }
 
@@ -437,11 +463,6 @@ main {
         width: 180px;
         background: linear-gradient(to bottom, #333, #000); /* Sidebar gradient background */
         border-radius: 0;
-    }
-
-    .nav-container ul {
-        display: flex;
-        flex-direction: column;
     }
 
     main {
