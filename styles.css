@@ -8,9 +8,9 @@
 html, body {
     margin: 0;
     padding: 0;
-    font: 18px/1.5 'Calibri', sans-serif;
+    font: 18px/1.5 'Orbon', sans-serif;
     color: rgba(255, 255, 255, 0.9);
-    background: #000; /* Black background */
+    background: linear-gradient(to bottom, #000000 40%, #3a1f47 100%); /* Gradient starts transitioning to purple halfway */
     overflow-x: hidden; /* Prevents horizontal scrolling */
     height: 100%;
 }
@@ -23,14 +23,10 @@ html, body {
 
 .background-image-container {
     width: 100%;
-    height: 100vh; /* Adjust height as needed */
+    height: 100vh; /* Full viewport height */
     background: url('images/Header Background.png') center center/cover no-repeat;
     position: relative;
-    background-size: cover; /* Cover the entire container */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-    background-position: center center;
 }
-
 
 .content-container {
     position: relative;
@@ -44,12 +40,11 @@ header {
     justify-content: center;
     align-items: center;
     padding: 10px;
-    margin: 0;
     font-family: 'Orbon', calibri;
     font-size: 50px;
-    height: 300px; /* Match the background image height */
+    height: 300px;
     text-align: center;
-    color: #fff;
+    color: #ccd3ec; /* Updated text color */
 }
 
 header h1 {
@@ -64,7 +59,7 @@ header h1::before {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(45deg, #FFA34B, #80E9FE); /* Light orange to light blue gradient */
+    background: linear-gradient(45deg, #faa04a, #7c68d1); /* Updated gradient */
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
@@ -76,20 +71,26 @@ header:hover h1::before {
 }
 
 header:hover h1 {
-    text-shadow: 0 0 20px #FFA34B; /* Light orange text shadow */
+    text-shadow: 0 0 20px #faa04a; /* Updated shadow color */
 }
 
 /* Navigation */
 .nav-container {
-    display: flex;
-    flex-direction: column;
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 180px;
-    background: linear-gradient(to bottom, #5238A6, #80E9FE); /* Purple to light blue gradient */
+    background: transparent; /* Remove background color */
     border-radius: 0;
+    transition: background 0.5s ease; /* Smooth transition */
+    z-index: 1; /* Ensure it's on top of the content */
+}
+
+.nav-list {
+    background: linear-gradient(to bottom, rgba(58, 31, 71, 1), rgba(58, 31, 71, 0)); /* Gradient fading to transparent */
+    padding: 10px;
+    border-radius: 10px;
 }
 
 nav ul {
@@ -108,14 +109,31 @@ nav li {
 }
 
 nav a {
-    color: #000; /* Black text */
+    color: #ffffff; /* Updated text color */
     font-size: 30px;
     text-decoration: none;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3); /* Light text shadow for visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Light shadow for visibility */
 }
 
 nav a:hover {
-    color: #FFA34B; /* Light orange */
+    color: #faa04a; /* Updated hover color */
+}
+
+/* Sidebar Image Container */
+.sidebar-image-container {
+    width: 100%;
+    padding: 0px;
+    box-sizing: border-box;
+    margin-top: 0px;
+    text-align: center;
+    background: transparent; /* Ensure transparent background */
+}
+
+.sidebar-image-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 /* Main Content */
@@ -128,15 +146,65 @@ main {
     align-items: center;
     padding: 15px;
     max-width: 800px;
-    margin: 50px auto 0 auto; /* Adjust top margin to create space above */
-    text-align: center;
-    background: linear-gradient(45deg, rgba(82, 56, 166, 0.7), rgba(128, 233, 254, 0.7)); /* Purple to light blue gradient */
+    margin: 50px auto 0;
     border-radius: 15px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.homepage-main {
-    background: none; /* Remove the background */
+/* About Text */
+.about-text-container {
+    background: linear-gradient(45deg, rgba(58, 31, 71, 0.8), rgba(124, 104, 209, 0.8)); /* Updated gradient */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Calibri', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #ccd3ec; /* Updated text color */
+}
+
+/* Contact Section */
+.contact-section {
+    margin-top: 40px;
+    font-family: 'Calibri', sans-serif;
+    text-align: center; /* Center-align text */
+}
+
+.contact-section h2 {
+    font-family: 'Calibri', sans-serif;
+    font-size: 36px;
+}
+
+.contact-section p {
+    font-size: 40px; /* Increase font size for better readability */
+    line-height: 1.6; /* Improve line spacing for readability */
+    margin: 10px 0; /* Add vertical space around paragraphs */
+}
+
+.contact-section p a {
+    color: #FFA34B; /* Light orange for email link */
+    text-decoration: underline;
+}
+
+/* Remove email link color change on hover */
+.contact-section p a:hover {
+    color: #FFA34B; /* Light orange */
+}
+.social-media {
+    margin-top: 20px;
+}
+
+.social-link {
+    display: inline-block;
+    margin: 0 15px; /* Increased margin for spacing */
+    font-size: 30px; /* Increased font size */
+    color: #fff; /* White text color */
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.social-link:hover {
+    color: #FFA34B; /* Light orange */
 }
 
 /* Logo */
@@ -154,9 +222,9 @@ main {
     margin: 0 auto;
 }
 
-/* Image Container */
+/* Images */
 .side-image {
-    width: 300px; /* Adjust size as needed */
+    width: 300px;
     height: auto;
 }
 
@@ -176,7 +244,6 @@ main {
 /* Carousel */
 .carousel-container {
     position: relative;
-
     max-width: 700px;
     overflow: hidden;
 }
@@ -203,16 +270,15 @@ main {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: linear-gradient(45deg, #FFA34B, #80E9FE); /* Light orange to light blue gradient */
+    background: linear-gradient(45deg, #faa04a, #7c68d1); /* Updated gradient */
     color: #fff;
     border: none;
-    outline: none;
     cursor: pointer;
     padding: 10px;
     font-size: 24px;
     z-index: 1;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    margin: 0 -20px; /* Adjust the margin as needed */
+    margin: 0 -20px;
 }
 
 .carousel-arrow.prev {
@@ -239,14 +305,14 @@ main {
 .pagination-item {
     width: 10px;
     height: 10px;
-    background-color: #ccc;
+    background-color: #7c68d1; /* Updated color */
     border-radius: 50%;
     margin: 0 5px;
     cursor: pointer;
 }
 
 .pagination-item.active {
-    background-color: #fff;
+    background-color: #ccd3ec; /* Updated color */
 }
 
 /* Dropdown Menus */
@@ -259,16 +325,14 @@ main {
     display: none;
     position: absolute;
     min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1001;
-    overflow: visible;
-    background: linear-gradient(to top right, #80E9FE, #FFA34B); /* Light blue to light orange gradient */
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background: linear-gradient(to top right, #7c68d1, #faa04a); /* Updated gradient */
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .dropdown-content a {
-    color: black;
+    color: #ffffff; /* White text color */
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -277,7 +341,8 @@ main {
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; /* Light background on hover for contrast */
+    color: #3a1f47; /* Darker text color on hover */
 }
 
 .dropdown:hover .dropdown-content {
@@ -287,80 +352,58 @@ main {
 
 /* Buttons */
 .dropbtn {
-    background: linear-gradient(45deg, #FFA34B, #80E9FE); /* Light orange to light blue gradient */
-    color: black;
+    background: linear-gradient(45deg, #faa04a, #7c68d1); /* Updated gradient */
+    color: #ffffff; /* Same font color as nav buttons */
     padding: 10px;
     font-size: 30px;
     border: none;
     cursor: pointer;
     font-family: 'Orbon', sans-serif;
     text-decoration: underline;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
 }
 
 .dropbtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #3a1f47;
+    color: #faa04a;
+    border: 2px solid #7c68d1; /* Updated border color */
 }
 
-@media (hover: none) {
-    .dropbtn {
-        user-select: none;
-        -webkit-user-select: none; /* For Safari */
-        -moz-user-select: none; /* For Firefox */
-        -ms-user-select: none; /* For IE/Edge */
-    }
+.dropbtn:focus {
+    outline: none;
 }
 
 /* Footer */
 .footer {
-    background: linear-gradient(45deg, #5238A6, #80E9FE); /* Purple to light blue gradient */
+    background: transparent; /* Make background transparent */
     text-align: center;
     padding: 20px;
-    color: #fff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    color: #fff; /* White text color */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7); /* Stronger text shadow for better readability */
     margin-top: 20px;
+    font-family: 'Calibri', sans-serif; /* Apply Calibri font to footer text */
 }
 
 .footer p {
     margin: 10px 0;
-    font-size: 20px;
+    font-size: 22px; /* Increase font size for better readability */
 }
 
-.contact-section {
-    margin-top: 40px;
-}
-
-.contact-section h2 {
-    font-family: 'Orbon', sans-serif;
-    font-size: 36px;
-}
-
-.contact-section p a {
-    color: #FFA34B; /* Light orange */
+/* Footer links */
+.footer a {
+    color: #FFA34B; /* Light orange for links */
     text-decoration: underline;
 }
 
-.contact-section p a:hover {
-    color: #ccc;
+.footer a:hover {
+    color: #fff; /* Change link color on hover for better contrast */
 }
 
-.social-media {
-    margin-top: 20px;
-}
-
-.social-link {
-    display: inline-block;
-    margin: 0 10px;
-    font-size: 18px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.social-link:hover {
-    color: #FFA34B; /* Light orange */
+/* Remove social media links from footer */
+.footer .social-media {
+    display: none; /* Hide social media links in footer */
 }
 
 /* Sidebar Image Container */
@@ -381,7 +424,6 @@ main {
 
 /* Media Queries */
 @media (max-width: 768px) {
-
     .nav-container {
         display: flex;
         justify-content: center;
@@ -390,20 +432,19 @@ main {
         position: relative;
         left: 0;
         height: 100%;
-        border-radius: 0;
         width: 100%;
         border-radius: 15px;
     }
-    
+
     .background-image-container {
-        max-height: 300px; /* Ensure the container does not exceed 300px */
-        overflow: hidden; /* Hide any overflow */
+        max-height: 300px;
+        overflow: hidden;
     }
 
     .logo-container img {
         max-width: 60%;
     }
- 
+
     nav ul {
         flex-direction: row;
         row-gap: 15px;
@@ -435,9 +476,9 @@ main {
 
     main {
         padding-top: 20px;
-
+        background: none; /* Removed background */
     }
-    
+
     .main-image-container img {
         max-width: auto;
     }
@@ -452,8 +493,6 @@ main {
         left: 0;
         height: 100%;
         width: 180px;
-        background: linear-gradient(to bottom, #5238A6, #80E9FE); /* Purple to light blue gradient */
-        border-radius: 0;
     }
 
     main {
@@ -462,22 +501,22 @@ main {
         align-items: center;
         position: relative;
         min-width: 700px;
-        font-size: 30px; /* Adjust the value as needed */
+        font-size: 30px;
+        background: none; /* Removed background */
     }
 
     .background-image-container {
-        height: 40vh; /* Adjust height as needed */
-        background-size: cover; /* Cover the entire container */
-}
+        height: 40vh;
+        background-size: cover;
+    }
 
     .dropdown-content {
         position: relative;
         background-color: #f9f9f9;
-        width: max-content; /* Adjust width to fit content */
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        z-index: 1001;
+        width: max-content;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         left: 46.5%;
-        transform: translateX(-50%); /* Center horizontally */
+        transform: translateX(-50%);
     }
 
     .dropbtn {
