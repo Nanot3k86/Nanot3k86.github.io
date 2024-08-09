@@ -455,6 +455,13 @@ main {
     nav a {
         font-size: 25px;
     }
+    .contact-section h2 {
+    font-size: 20px;
+}
+
+.contact-section p {
+    font-size: 20px; /* Increase font size for better readability */
+}
 
     .carousel-arrow {
         margin: 0;
