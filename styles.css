@@ -329,6 +329,7 @@ main {
     background: linear-gradient(to top right, #7c68d1, #faa04a); /* Updated gradient */
     opacity: 0;
     transition: opacity 0.3s ease;
+    user-select: none; /* Prevent text selection */
 }
 
 .dropdown-content a {
@@ -338,11 +339,13 @@ main {
     display: block;
     font-family: 'Orbon', sans-serif;
     font-size: 30px;
+    user-select: none; /* Prevent text selection */
 }
 
 .dropdown-content a:hover {
     background-color: #f1f1f1; /* Light background on hover for contrast */
     color: #3a1f47; /* Darker text color on hover */
+    user-select: none; /* Prevent text selection */
 }
 
 .dropdown:hover .dropdown-content {
@@ -363,12 +366,14 @@ main {
     border-radius: 15px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
+    user-select: none; /* Prevent text selection */
 }
 
 .dropbtn:hover {
     background-color: #3a1f47;
     color: #faa04a;
     border: 2px solid #7c68d1; /* Updated border color */
+    user-select: none; /* Prevent text selection */
 }
 
 .dropbtn:focus {
