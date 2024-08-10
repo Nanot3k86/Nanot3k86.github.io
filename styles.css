@@ -98,7 +98,7 @@ header:hover h1 {
     display: none; /* Initially hidden */
     font-size: 30px; /* Smaller font size for the description */
     color: #ccd3ec; /* Text color */
-    margin-top: 5px; /* Space between the button and the description */
+    margin-top: 15px; /* Space between the button and the description */
     text-align: center;
     opacity: 0;
     transition: opacity 0.3s ease;
