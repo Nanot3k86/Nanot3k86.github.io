@@ -91,6 +91,17 @@ header:hover h1 {
     background: linear-gradient(to bottom, rgba(58, 31, 71, 1), rgba(58, 31, 71, 0)); /* Gradient fading to transparent */
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 30px; /* Increased margin to allow space for the description */
+}
+
+.nav-description {
+    display: none; /* Initially hidden */
+    font-size: 14px; /* Smaller font size for the description */
+    color: #ccd3ec; /* Text color */
+    margin-top: 5px; /* Space between the button and the description */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 nav ul {
@@ -505,6 +516,11 @@ main {
         left: 0;
         height: 100%;
         width: 180px;
+    }
+
+        .nav-description {
+        display: block; /* Show the description */
+        opacity: 1; /* Fade in the description */
     }
 
     main {
