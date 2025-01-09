@@ -250,13 +250,17 @@ main {
 }
 
 /* Carousel Styles */
+.carousel-indicators {
+  bottom: -40px; /* Increased the negative value */
+}
+
 .carousel-indicators [data-bs-target] {
-  width: 10px; /* Adjust the width as needed */
-  height: 10px; /* Adjust the height as needed */
+  width: 10px; 
+  height: 10px; 
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3); /* Less noticeable color */
+  background-color: rgba(255, 255, 255, 0.3); 
 }
 
 .carousel-indicators .active {
-  background-color: rgba(255, 255, 255, 0.5); /* Slightly more prominent when active */
+  background-color: rgba(255, 255, 255, 0.5);
 }
