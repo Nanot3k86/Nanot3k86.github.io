@@ -9,12 +9,26 @@ html,
 body {
     margin: 0;
     padding: 0;
-    font: 18px/1.5 'Orbon', sans-serif;
+    /* === MODIFIED FONT SETTINGS === */
+    font-size: 19px; /* Base size from previous step */
+    line-height: 1.55; /* Base line-height from previous step */
+    /* Default font changed to Calibri with fallbacks */
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    /* === END MODIFICATION === */
     color: rgba(255, 255, 255, 0.9);
     background: linear-gradient(to bottom, #000000 40%, #3a1f47 100%);
     overflow-x: hidden;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+/* === ADDED RULE FOR HEADINGS === */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbon', sans-serif; /* Ensure headings use Orbon */
+}
+/* === END ADDED RULE === */
+
 
 /* Navigation */
 .navbar {
@@ -31,9 +45,10 @@ body {
     width: 100%;
 }
 
+/* Ensure Navbar elements explicitly use Orbon */
 .navbar-brand,
 .nav-link {
-    font-family: 'Orbon', sans-serif;
+    font-family: 'Orbon', sans-serif; /* This rule remains */
     color: #ffffff !important;
 }
 
@@ -55,11 +70,13 @@ body {
 /* Main Content */
 main {
     position: relative;
-    display: flex;
-    flex-direction: column;
     padding: 15px;
     margin: 0 auto;
     padding-top: 100px;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
 }
 
 /* Hero Section */
@@ -73,22 +90,25 @@ main {
     min-height: 400px;
     color: white;
     padding: 50px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
 }
 
-#hero h1 {
+#hero h1 { /* Will use Orbon due to the h1 rule */
     font-size: 4rem;
     margin-bottom: 1rem;
 }
 
-#hero p {
+#hero p { /* Will use Calibri (inherits from body) */
     font-size: 1.5rem;
 }
 
-#hero .btn {
+#hero .btn { /* Will use Calibri (inherits from body) */
     padding: 15px 30px;
     font-size: 1.2rem;
     border-radius: 5px;
     background-color: #faa04a;
+    border: none;
     color: #fff;
     transition: all 0.3s ease;
 }
@@ -98,47 +118,18 @@ main {
     transform: scale(1.1);
 }
 
-/* Welcome Section */
+/* Welcome Section Specifics (If different from Hero) */
 .welcome-message {
     text-align: left;
 }
 
-.welcome-message h1 {
+.welcome-message h1 { /* Will use Orbon */
     font-size: 2.5rem;
     margin-bottom: 10px;
 }
 
-.welcome-message p {
+.welcome-message p { /* Will use Calibri */
     font-size: 1.2rem;
-}
-
-.image-carousel {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    margin-left: 20px;
-}
-
-.carousel-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.carousel-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(80%);
-    border-radius: 15px;
-}
-
-.carousel-image.active {
-    opacity: 1;
 }
 
 /* Services Section */
@@ -156,7 +147,13 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 270px;
 }
+
+.service-box p { /* Will use Calibri */
+     /* Add specific styles if needed */
+}
+
 
 .service-box:hover {
     transform: translateY(-10px);
@@ -169,27 +166,30 @@ main {
     margin-bottom: 20px;
 }
 
-.service-box h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-/* Lottie Container Styling */
-#lottie-content-creation {
+.service-box video {
     width: 100px;
     height: 100px;
+    object-fit: cover;
     margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+}
+
+.service-box h2 { /* Will use Orbon */
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
 }
 
 /* About Section */
 #about {
     text-align: center;
+     margin-bottom: 30px;
 }
 
-#about h2 {
+#about p { /* Will use Calibri */
+    /* Add specific styles if needed */
+}
+
+#about h2 { /* Will use Orbon */
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
@@ -197,9 +197,14 @@ main {
 /* Contact Section */
 #contact {
     text-align: center;
+     margin-bottom: 50px;
 }
 
-#contact h2 {
+#contact p { /* Will use Calibri */
+     /* Add specific styles if needed */
+}
+
+#contact h2 { /* Will use Orbon */
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
@@ -210,11 +215,14 @@ main {
     color: white;
     padding: 20px 0;
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Override Bootstrap's btn-primary specifically within the contact section */
-#contact .btn.btn-primary {
+#contact .btn.btn-primary { /* Will use Calibri */
     background-color: #faa04a;
+    border: none;
 }
 
 #contact .btn.btn-primary:hover {
@@ -224,47 +232,61 @@ main {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-    #hero h1 {
+    .nav-link { /* Will use Orbon */
+        font-size: 28px;
+        margin: 0 15px;
+    }
+
+    #hero {
+        padding: 30px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #hero h1 { /* Will use Orbon */
         font-size: 2.5rem;
     }
 
-    #hero p {
+    #hero p { /* Will use Calibri */
         font-size: 1.2rem;
     }
 
-    #hero .btn {
+    #hero .btn { /* Will use Calibri */
         font-size: 1rem;
         padding: 10px 20px;
-    }
-
-    .image-carousel {
-        display: none;
     }
 
     .welcome-message {
         max-width: 100%;
         margin-bottom: 30px;
+        text-align: center;
     }
 
     .service-box {
         padding: 20px;
+        min-height: auto;
     }
 
-    .service-box h2 {
+    .service-box h2 { /* Will use Orbon */
         font-size: 1.6rem;
+    }
+
+    #about h2, #contact h2 { /* Will use Orbon */
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 480px) {
-    .nav-link {
-        font-size: 24px;
+    .nav-link { /* Will use Orbon */
+        font-size: 20px;
+        margin: 0 10px;
     }
 
-    #hero h1 {
+    #hero h1 { /* Will use Orbon */
         font-size: 2rem;
     }
 
-    #hero p {
+    #hero p { /* Will use Calibri */
         font-size: 1rem;
     }
 
@@ -272,12 +294,16 @@ main {
         padding: 15px;
     }
 
-    .service-box h2 {
+    .service-box h2 { /* Will use Orbon */
         font-size: 1.4rem;
+    }
+
+     #about h2, #contact h2 { /* Will use Orbon */
+        font-size: 1.8rem;
     }
 }
 
-/* Carousel Styles */
+/* Bootstrap Carousel Adjustments (If needed) */
 .carousel-indicators {
     bottom: -40px;
 }
@@ -287,8 +313,38 @@ main {
     height: 10px;
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.3);
+    border: none;
 }
 
 .carousel-indicators .active {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Preloader Styles */
+#preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  background: #3a1f47;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #faa04a;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
