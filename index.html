@@ -78,21 +78,24 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="service-box animate__animated animate__fadeInUp">
-                        <img src="images/Limitless Living Lab Logo White Lines.png" alt="Logos Service">
+                        <img src="images/New New Logo.png" alt="Logos Service">
                         <h2>Logo Design</h2>
                         <p>Crafting unique and memorable logos that represent your brand identity.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="service-box animate__animated animate__fadeInUp">
-                        <div id="lottie-content-creation"></div>
+                        <video autoplay loop muted playsinline width="100" height="100">
+                            <source src="Starfires_Logo_Loop.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                         <h2>Content Creation</h2>
                         <p>Motion graphics and multimedia production, using current tools and trends to help small businesses stand out with an evolving and intimidating market.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="service-box animate__animated animate__fadeInUp">
-                        <img src="images/GreenNest Solutions Small Box.png" alt="Marketing Service">
+                        <img src="images/Mockup 1.png" alt="Marketing Service">
                         <h2>Marketing & Branding</h2>
                         <p>Developing comprehensive marketing strategies and brand identities that help you stand out.</p>
                     </div>
@@ -131,27 +134,13 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <script>
         // Preloader
         window.addEventListener('load', function () {
             document.getElementById('preloader').style.display = 'none';
         });
 
-        // Load and play Lottie animation for Content Creation
-        const animationContainer = document.getElementById('lottie-content-creation');
-        const animationData = {
-            container: animationContainer,
-            renderer: 'svg', // You can also use 'canvas' or 'html'
-            loop: true, // Set to true if you want the animation to loop
-            autoplay: true, // Set to true if you want the animation to play automatically
-            path: 'starfires_logo_animation.json', // Replace with the actual path to your JSON file
-            rendererSettings: {
-                preserveAspectRatio: 'xMidYMid meet' // Or 'xMinYMin meet', 'xMaxYMax meet', etc.
-            }
-        };
-
-        const anim = lottie.loadAnimation(animationData);
+        // Removed Lottie animation loading script
     </script>
 </body>
 </html>
