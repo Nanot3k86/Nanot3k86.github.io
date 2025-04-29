@@ -313,3 +313,106 @@ main {
         transform: rotate(360deg);
     }
 }
+
+/* Video Lightbox Styles */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.lightbox-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 90%;  /* Increased max-width */
+    max-height: 90%; /* Increased max-height */
+    display: flex;
+    flex-direction: column;
+    cursor: auto;
+}
+
+.lightbox-content iframe {
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    border: none;
+}
+
+.btn-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-close:hover,
+.btn-close:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: none;
+}
+
+.video-thumbnail-container {
+    margin-bottom: 20px;
+}
+
+.video-thumbnail-container img {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.video-thumbnail-container button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-thumbnail-container:hover button {
+    opacity: 1;
+}
+
+.video-thumbnail-container button svg {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.video-thumbnail-container button.btn-primary {
+    background-color: #faa04a;
+}
+
+.video-thumbnail-container button.btn-primary:hover {
+    background-color: #e68a2e;
+}
