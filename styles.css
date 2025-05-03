@@ -56,9 +56,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .navbar-toggler-icon {
@@ -335,8 +335,8 @@ main {
     margin: auto;
     padding: 20px;
     border-radius: 5px;
-    max-width: 90%;  /* Increased max-width */
-    max-height: 90%; /* Increased max-height */
+    max-width: 90%;
+    max-height: 90%;
     display: flex;
     flex-direction: column;
     cursor: auto;
@@ -373,7 +373,7 @@ main {
 }
 
 .video-thumbnail-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .video-thumbnail-container img {
