@@ -329,7 +329,7 @@ main {
     height: 0;
     padding-bottom: 56.25%;
     cursor: pointer;
-    margin-bottom: 0.5rem; /* Reduced from 20px to 0.5rem (approximately 8px) */
+    margin-bottom: calc(1rem / 2); /* Reduced from 1rem to 0.5rem (approximately 8px) */
 }
 
 .video-container iframe {
