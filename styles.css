@@ -416,3 +416,7 @@ main {
 .video-thumbnail-container button.btn-primary:hover {
     background-color: #e68a2e;
 }
+
+.video-container{
+    margin-bottom: 10px;
+}
