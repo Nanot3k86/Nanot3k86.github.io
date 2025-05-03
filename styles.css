@@ -327,8 +327,7 @@ main {
     width: 100%;
     max-width: 600px;
     height: 0;
-    /* padding-bottom: 56.25%;  Aspect ratio for 16:9 (9 / 16 = 0.5625) */
-    padding-bottom: 66.6666%; /* Aspect ratio for 3:2 (2 / 3 = 0.6666) */
+    padding-bottom: 66.6666%; /* Aspect ratio for 3:2 (2 / 3 = 0.6666)  */
     cursor: pointer;
     margin-bottom: 1rem;
 }
