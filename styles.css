@@ -194,8 +194,51 @@ main {
     box-sizing: border-box;
 }
 
+/* Video Styles */
+.video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* You had 'gap' here, which is fine, just noting it */
+}
+
+/* Updated .video-container styles */
+.video-container.video-item { /* Added .video-item for specificity if needed, otherwise .video-container is fine */
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* This was in your inline style */
+    height: 0;
+    padding-bottom: 25.25%; /* Default aspect ratio for larger screens */
+    cursor: pointer;
+    margin-bottom: 1rem; /* This was in your inline style */
+}
+
+.video-container.video-item iframe { /* Targeting iframe inside the specific container */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-container.video-item .play-button { /* Targeting play-button inside the specific container */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    /* cursor: pointer; was already on parent, likely not needed here but doesn't hurt */
+}
+
+.video-container.video-item .play-button svg { /* Targeting svg inside the specific container's play-button */
+    width: 50px;
+    height: 50px;
+    fill: currentColor; /* Assuming you want the SVG to inherit color, otherwise set a specific color */
+}
+
+
 /* Mobile Responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* Existing media query */
     .nav-link {
         font-size: 28px;
         margin: 0 15px;
@@ -235,7 +278,19 @@ main {
     }
 }
 
-@media (max-width: 480px) {
+/* Added rule for video container padding on smaller screens */
+/* You can either add this to the existing @media (max-width: 768px)
+   or use a more specific one like 767px if you prefer */
+@media (max-width: 767px) {
+    .video-container.video-item {
+        padding-bottom: 50%;
+        /* No !important needed if you remove the inline style="padding-bottom: 25.25%"
+           from your HTML div elements. If you keep the inline style, add !important here. */
+    }
+}
+
+
+@media (max-width: 480px) { /* Existing media query */
     .nav-link {
         font-size: 20px;
         margin: 0 10px;
@@ -312,45 +367,4 @@ main {
     100% {
         transform: rotate(360deg);
     }
-}
-
-/* Video Styles */
-.video-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-
-.video-container {
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    height: 0;
-    padding-bottom: 66.6666%; /* Aspect ratio for 3:2 (2 / 3 = 0.6666)  */
-    cursor: pointer;
-    margin-bottom: 1rem;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.video-container .play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    cursor: pointer;
-}
-
-.video-container .play-button svg {
-    width: 50px;
-    height: 50px;
-    fill: currentColor;
 }
