@@ -1,0 +1,80 @@
+---
+const { 
+  heading, 
+  headingColor,
+  subheading, 
+  subheadingColor,
+  buttonLabel, 
+  buttonColor,
+  buttonTextColor,
+  backgroundColor, 
+  backgroundColorEnd, 
+  gradientAngle 
+} = Astro.props;
+
+// Local Override Logic
+const start = backgroundColor?.hex;
+const end = backgroundColorEnd?.hex;
+const angle = gradientAngle || 135;
+let localBgStyle = "";
+
+if (start) {
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+
+const hColor = headingColor?.hex || 'inherit';
+const sColor = subheadingColor?.hex || 'inherit';
+const btnBg = buttonColor?.hex || 'var(--brand-primary)';
+const btnText = buttonTextColor?.hex || 'white';
+---
+
+<section class="py-24 px-6 border-y border-white/5" style={localBgStyle}>
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4 font-[family-name:var(--font-heading)] uppercase" style={`color: ${hColor};`}>
+      {heading || "Get In Touch"}
+    </h2>
+    <p class="text-lg opacity-70 mb-12 font-[family-name:var(--font-body)]" style={`color: ${sColor};`}>
+      {subheading || "Let's build something exceptional."}
+    </p>
+
+    <form 
+      name="contact" 
+      method="POST" 
+      data-netlify="true" 
+      netlify-honeypot="bot-field" 
+      action="/404" 
+      class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
+    >
+      <p class="hidden">
+        <label>Don't fill this out: <input name="bot-field" /></label>
+      </p>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-xs uppercase tracking-widest font-bold opacity-50" style={`color: ${sColor};`}>Name</label>
+        <input type="text" name="name" required class="bg-black/20 border border-white/10 p-4 focus:border-[var(--brand-primary)] outline-none transition-all" style={`color: ${sColor};`} />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label class="text-xs uppercase tracking-widest font-bold opacity-50" style={`color: ${sColor};`}>Email</label>
+        <input type="email" name="email" required class="bg-black/20 border border-white/10 p-4 focus:border-[var(--brand-primary)] outline-none transition-all" style={`color: ${sColor};`} />
+      </div>
+
+      <div class="flex flex-col gap-2 md:col-span-2">
+        <label class="text-xs uppercase tracking-widest font-bold opacity-50" style={`color: ${sColor};`}>Message</label>
+        <textarea name="message" rows="5" required class="bg-black/20 border border-white/10 p-4 focus:border-[var(--brand-primary)] outline-none transition-all resize-none" style={`color: ${sColor};`}></textarea>
+      </div>
+
+      <div class="md:col-span-2 text-center mt-4">
+        <button 
+          type="submit" 
+          class="inline-block px-12 py-4 font-bold uppercase tracking-widest text-sm transition-all hover:scale-105 active:scale-95 shadow-xl"
+          style={`background-color: ${btnBg}; color: ${btnText};`}
+        >
+          {buttonLabel || "Send Message"}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

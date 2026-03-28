@@ -1,0 +1,106 @@
+---
+import { urlFor } from '../../utils/image';
+const { 
+  heading, 
+  product,
+  headingColor,
+  backgroundColor,
+  backgroundColorEnd,
+  gradientAngle,
+  cardColor,
+  productTitleColor,
+  textColor,
+  buttonColor,
+  buttonTextColor
+} = Astro.props;
+
+// Local Override Logic for the Section Wrapper
+const start = backgroundColor?.hex;
+const end = backgroundColorEnd?.hex;
+const angle = gradientAngle || 135;
+let localBgStyle = "";
+
+if (start) {
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+
+// Module-level color picks from Sanity
+const headHex = headingColor?.hex || 'var(--brand-primary)';
+const titleHex = productTitleColor?.hex || 'var(--brand-text)';
+const textHex = textColor?.hex || 'var(--brand-text)';
+
+// Card Background Fallback (Subtle glass effect)
+const cardBgHex = cardColor?.hex || 'rgba(255, 255, 255, 0.1)';
+
+// Button and Price use the "Smart Fallback" logic mapped to the specific product
+const btnBgHex = buttonColor?.hex || product?.accentColor?.hex || 'var(--brand-secondary)';
+const btnTextHex = buttonTextColor?.hex || '#ffffff';
+---
+
+<section class="py-24 px-4" style={localBgStyle}>
+  <div 
+    class="max-w-6xl mx-auto backdrop-blur-md rounded-3xl overflow-hidden shadow-xl border border-white/10 grid md:grid-cols-2"
+    style={`background-color: ${cardBgHex};`}
+  >
+    <div class="h-64 md:h-auto bg-black/5 relative">
+      {product?.productImage && (
+        <img 
+          src={urlFor(product.productImage).width(800).url()} 
+          alt={product.title || "Featured Product"} 
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+        />
+      )}
+    </div>
+    
+    <div class="p-8 md:p-12 flex flex-col justify-center">
+      {heading && (
+        <p 
+          class="text-sm font-bold uppercase tracking-widest mb-2 font-[family-name:var(--font-body)]"
+          style={`color: ${headHex};`}
+        >
+          {heading}
+        </p>
+      )}
+      
+      {product?.title && (
+        <h2 
+          class="text-4xl font-bold mb-4 font-[family-name:var(--font-heading)]"
+          style={`color: ${titleHex};`}
+        >
+          {product.title}
+        </h2>
+      )}
+      
+      {product?.price && (
+        <p 
+          class="text-3xl font-bold mb-6 font-[family-name:var(--font-body)]"
+          style={`color: ${btnBgHex};`} 
+        >
+          ${product.price}
+        </p>
+      )}
+      
+      {product?.description && (
+        <p 
+          class="opacity-90 mb-8 font-[family-name:var(--font-body)] leading-relaxed"
+          style={`color: ${textHex};`}
+        >
+          {product.description}
+        </p>
+      )}
+      
+      {product?.buyLink && (
+        <a 
+          href={product.buyLink} 
+          class="inline-block py-4 px-8 rounded-xl hover:scale-105 active:scale-95 transition-transform text-center font-bold shadow-md uppercase tracking-widest text-sm"
+          style={`background-color: ${btnBgHex}; color: ${btnTextHex}; max-width: max-content;`}
+        >
+          View Product
+        </a>
+      )}
+    </div>
+  </div>
+</section>

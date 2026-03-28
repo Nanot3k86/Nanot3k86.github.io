@@ -1,0 +1,88 @@
+---
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+import '../styles/global.css';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+
+const { title, seo: pageSeo } = Astro.props;
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
+
+const settings = await sanityClient.fetch(`
+  *[_type == "siteSettings"][0]{
+    title, favicon, brandPrimary { hex }, brandSecondary { hex }, brandText { hex },
+    globalSectionBg { hex }, globalSectionBgEnd { hex }, globalGradientAngle,
+    seo { metaTitle, metaDescription, shareImage { asset->{ url } } }
+  }
+`);
+
+const finalTitle = pageSeo?.metaTitle || title || settings?.title || "Studio";
+const finalDesc = pageSeo?.metaDescription || settings?.seo?.metaDescription || "";
+const finalShareImage = pageSeo?.shareImage?.asset?.url || settings?.seo?.shareImage?.asset?.url || "";
+const faviconUrl = settings?.favicon ? urlFor(settings.favicon).width(32).height(32).url() : '/favicon.svg';
+
+const brandPrimary = settings?.brandPrimary?.hex || '#28B579';
+const brandSecondary = settings?.brandSecondary?.hex || '#FF7D00';
+const brandText = settings?.brandText?.hex || '#593569';
+
+const gStart = settings?.globalSectionBg?.hex || 'transparent';
+const gEnd = settings?.globalSectionBgEnd?.hex;
+const gAngle = settings?.globalGradientAngle || 135;
+const globalBg = gEnd ? `linear-gradient(${gAngle}deg, ${gStart} 0%, ${gEnd} 100%)` : gStart;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="PASTE_YOUR_CODE_HERE" />
+    <link rel="icon" type="image/svg+xml" href={faviconUrl} />
+    <link rel="canonical" href={Astro.url} />
+    
+    <title>{finalTitle}</title>
+    <meta name="description" content={finalDesc} />
+    <meta property="og:title" content={finalTitle} />
+    <meta property="og:description" content={finalDesc} />
+    <meta property="og:image" content={finalShareImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Shining Form Design",
+        "url": "https://shiningform.com",
+        "logo": "https://shiningform.com/favicon.svg",
+        "description": "Modular web design and digital solutions studio."
+      }
+    </script>
+  </head>
+  <body class="antialiased flex flex-col min-h-screen">
+    <Navbar />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global define:vars={{ brandPrimary, brandSecondary, brandText, globalBg }}>
+  :root {
+    --brand-primary: var(--brandPrimary);
+    --brand-secondary: var(--brandSecondary);
+    --brand-text: var(--brandText);
+    --global-section-bg: var(--globalBg);
+    --nav-height: 80px; 
+    --font-heading: 'Cinzel Decorative', serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+  
+  section { background: var(--global-section-bg); }
+  body { background-color: #B3B5B4; color: var(--brand-text); font-family: var(--font-body); margin: 0; }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+</style>

@@ -1,0 +1,79 @@
+---
+const { 
+  headline, 
+  subheadline, 
+  buttonText, 
+  buttonLink, 
+  backgroundImage,
+  headlineColor,
+  subheadlineColor,
+  buttonColor,
+  buttonTextColor,
+  backgroundColor,
+  backgroundColorEnd,
+  gradientAngle
+} = Astro.props;
+
+// Local Override & Overlay Logic
+const start = backgroundColor?.hex;
+const end = backgroundColorEnd?.hex;
+const angle = gradientAngle || 135;
+let localBgStyle = "";
+
+if (backgroundImage) {
+  // If image exists, apply colors as a semi-transparent overlay (CC hex = 80% opacity)
+  if (start && end) {
+    localBgStyle = `background: linear-gradient(${angle}deg, ${start}CC 0%, ${end}CC 100%), url('${backgroundImage}') center/cover !important;`;
+  } else if (start) {
+    localBgStyle = `background: linear-gradient(to right, ${start}CC, ${start}CC), url('${backgroundImage}') center/cover !important;`;
+  } else {
+    localBgStyle = `background: url('${backgroundImage}') center/cover !important;`;
+  }
+} else if (start) {
+  // Standard gradient/solid background logic
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+
+// Fallbacks
+const headHex = headlineColor?.hex || 'var(--brand-text)';
+const subHex = subheadlineColor?.hex || 'var(--brand-text)';
+const btnBgHex = buttonColor?.hex || 'var(--brand-secondary)';
+const btnTextHex = buttonTextColor?.hex || '#ffffff';
+---
+
+<section 
+  class="w-full py-32 relative overflow-hidden border-b border-black/5"
+  style={localBgStyle}
+>
+  <div class="max-w-4xl mx-auto text-center px-4 relative z-10">
+    {headline && (
+      <h1 
+        class="text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg font-[family-name:var(--font-heading)] leading-tight"
+        style={`color: ${headHex};`}
+      >
+        {headline}
+      </h1>
+    )}
+    
+    {subheadline && (
+      <p 
+        class="text-center text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto drop-shadow-md font-[family-name:var(--font-body)] leading-relaxed"
+        style={`color: ${subHex};`}
+      >
+        {subheadline}
+      </p>
+    )}
+
+    {buttonText && (
+      <a 
+        href={buttonLink || "#"} 
+        class="inline-block hover:brightness-110 font-bold py-4 px-10 rounded-full transition-all shadow-xl hover:scale-105 font-[family-name:var(--font-body)] uppercase tracking-widest text-sm"
+        style={`background-color: ${btnBgHex}; color: ${btnTextHex};`}
+      >
+        {buttonText}
+      </a>
+    )}
+  </div>
+</section>

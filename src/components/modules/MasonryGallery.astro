@@ -1,0 +1,153 @@
+---
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+
+const { headline, headlineColor, backgroundColor, backgroundColorEnd, gradientAngle, items } = Astro.props;
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
+
+// Local Override Logic
+const start = backgroundColor?.hex;
+const end = backgroundColorEnd?.hex;
+const angle = gradientAngle || 135;
+let localBgStyle = "";
+
+if (start) {
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+---
+
+<section class="py-24 px-6" style={localBgStyle}>
+  <div class="max-w-7xl mx-auto">
+    {headline && (
+      <h2 class="text-4xl md:text-6xl font-bold mb-12 text-center font-[family-name:var(--font-heading)]" style={`color: ${headlineColor?.hex || 'inherit'};`}>
+        {headline}
+      </h2>
+    )}
+
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+      {items && items.length > 0 ? items.map((item: any) => {
+        const type = item.mediaType || 'image';
+        const altText = item.alt || "Gallery Media";
+        const thumbUrl = item.image ? urlFor(item.image).width(800).url() : '';
+        const fullImgUrl = item.image ? urlFor(item.image).width(2000).url() : '';
+        const videoUrl = item.videoUrl || '';
+        const audioUrl = item.audioUrl || ''; // Matches the "audioUrl" alias in query
+
+        return (
+          <div class="break-inside-avoid relative group">
+            <button 
+              class="gallery-trigger w-full overflow-hidden rounded-sm shadow-lg hover:shadow-2xl transition-all bg-black/10 relative block"
+              data-type={type}
+              data-img={fullImgUrl}
+              data-video={videoUrl}
+              data-audio={audioUrl}
+              data-alt={altText}
+            >
+              {thumbUrl ? (
+                <img 
+                  src={thumbUrl} 
+                  alt={altText}
+                  class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 block"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="w-full h-48 bg-black/20 flex items-center justify-center text-white/50 font-bold uppercase tracking-widest text-xs">No Cover Art</div>
+              )}
+
+              {(type === 'video' || type === 'audio') && (
+                <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                  <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-[var(--brand-primary)] ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              )}
+            </button>
+          </div>
+        );
+      }) : (
+        <div class="text-center py-20 opacity-50">No items found in this gallery.</div>
+      )}
+    </div>
+  </div>
+
+  <div 
+    id="gallery-lightbox" 
+    class="fixed left-0 w-full z-[150] bg-black/95 hidden flex-col items-center justify-center p-4 md:p-12 transition-all"
+    style="top: var(--nav-height); height: calc(100vh - var(--nav-height));"
+  >
+    <button id="close-lightbox" class="absolute top-6 right-8 text-white text-4xl z-[160] hover:scale-110 transition-transform">&times;</button>
+    <div id="lightbox-content" class="relative w-full h-full flex items-center justify-center max-w-6xl mx-auto">
+    </div>
+  </div>
+</section>
+
+<script>
+  const triggers = document.querySelectorAll('.gallery-trigger');
+  const lightbox = document.getElementById('gallery-lightbox');
+  const lightboxContent = document.getElementById('lightbox-content');
+  const closeBtn = document.getElementById('close-lightbox');
+
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      if (!lightbox || !lightboxContent) return;
+      
+      const type = trigger.getAttribute('data-type');
+      const alt = trigger.getAttribute('data-alt');
+      const imgSrc = trigger.getAttribute('data-img');
+      const videoSrc = trigger.getAttribute('data-video');
+      const audioSrc = trigger.getAttribute('data-audio');
+
+      lightboxContent.innerHTML = '';
+
+      if (type === 'image' && imgSrc) {
+        lightboxContent.innerHTML = `<img src="${imgSrc}" alt="${alt}" class="max-w-full max-h-full object-contain shadow-2xl animate-fade-in" />`;
+      } 
+      else if (type === 'video' && videoSrc) {
+        lightboxContent.innerHTML = `
+          <div class="w-full aspect-video shadow-2xl animate-fade-in bg-black">
+            <iframe src="${videoSrc}" class="w-full h-full rounded-sm" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>`;
+      } 
+      else if (type === 'audio' && audioSrc) {
+        lightboxContent.innerHTML = `
+          <div class="flex flex-col items-center justify-center gap-8 w-full max-w-md bg-white/10 p-10 rounded-2xl backdrop-blur-xl shadow-2xl animate-fade-in border border-white/20">
+            ${imgSrc ? `<img src="${imgSrc}" class="w-48 h-48 object-cover rounded-full shadow-lg border-4 border-white/20" />` : ''}
+            <h3 class="text-white text-2xl font-bold text-center font-[family-name:var(--font-heading)]">${alt}</h3>
+            <audio controls autoplay class="w-full mt-4 outline-none">
+              <source src="${audioSrc}" type="audio/mpeg">
+              <source src="${audioSrc}" type="audio/wav">
+            </audio>
+          </div>`;
+      }
+
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  const close = () => {
+    if (lightbox && lightboxContent) {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+      lightboxContent.innerHTML = '';
+    }
+  };
+
+  closeBtn?.addEventListener('click', close);
+  lightbox?.addEventListener('click', (e) => { 
+    if(e.target === lightbox || e.target === lightboxContent) close(); 
+  });
+</script>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+</style>

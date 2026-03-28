@@ -1,0 +1,90 @@
+---
+import { urlFor } from '../../utils/image';
+const { 
+  heading, 
+  posts, 
+  headingColor, 
+  descriptionColor, 
+  backgroundColor,
+  backgroundColorEnd,
+  gradientAngle
+} = Astro.props;
+
+// Local Override Logic
+const start = backgroundColor?.hex;
+const end = backgroundColorEnd?.hex;
+const angle = gradientAngle || 135;
+let localBgStyle = "";
+
+if (start) {
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+
+// Section Fallbacks
+const headHex = headingColor?.hex || 'var(--brand-text)';
+const descHex = descriptionColor?.hex || 'var(--brand-text)';
+---
+
+<section 
+  class="py-20 px-4"
+  style={localBgStyle}
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-end mb-12 border-b border-[var(--brand-primary)]/20 pb-4">
+      <h2 
+        class="text-4xl font-bold font-[family-name:var(--font-heading)]"
+        style={`color: ${headHex};`}
+      >
+        {heading}
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      {posts?.map((post: any) => {
+        // Post-specific accent color fallback
+        const postAccent = post.accentColor?.hex || 'var(--brand-secondary)';
+        
+        return (
+          <article 
+            class="group cursor-pointer"
+            style={`--post-accent: ${postAccent};`}
+          >
+            <div class="overflow-hidden rounded-2xl mb-6 shadow-sm border border-[var(--brand-primary)]/10">
+              {post.mainImage && (
+                <img 
+                  src={urlFor(post.mainImage).width(600).height(400).url()} 
+                  alt={post.title} 
+                  class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
+                  loading="lazy"
+                />
+              )}
+            </div>
+            
+            <h3 
+              class="text-2xl font-bold mb-3 transition-colors font-[family-name:var(--font-heading)] leading-snug group-hover:text-[var(--post-accent)]"
+              style={`color: ${headHex};`}
+            >
+              {post.title}
+            </h3>
+            
+            <p 
+              class="opacity-80 line-clamp-2 font-[family-name:var(--font-body)] leading-relaxed"
+              style={`color: ${descHex};`}
+            >
+              {post.excerpt}
+            </p>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* This allows the tailwind class group-hover:text-[var(--post-accent)] to function */
+  .group:hover h3 {
+    color: var(--post-accent) !important;
+  }
+</style>

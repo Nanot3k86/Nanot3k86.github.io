@@ -1,0 +1,19 @@
+---
+import { sanityClient } from "sanity:client";
+const currentYear = new Date().getFullYear();
+const data = await sanityClient.fetch(`*[_type == "siteSettings"][0]{ title, brandPrimary{hex}, brandText{hex}, footerBg{hex}, footerText{hex} }`);
+
+const footerBgHex = data?.footerBg?.hex || data?.brandPrimary?.hex || '#28B579';
+// Fixed the syntax error here:
+const footerTextHex = data?.footerText?.hex || data?.brandText?.hex || '#593569';
+---
+<footer class="w-full py-10 px-6 backdrop-blur-sm border-t border-white/5 text-center flex flex-col gap-2" style={`background-color: ${footerBgHex};`}>
+  <p class="text-xs uppercase tracking-widest font-bold" style={`color: ${footerTextHex}; opacity: 1;`}>&copy; {currentYear} {data?.title || "Studio"}</p>
+  
+  <p 
+    class="text-[10px] uppercase tracking-[0.2em] isolation-auto" 
+    style="color: #ffffff; mix-blend-mode: difference;"
+  >
+    Made by <a href="https://shiningform.com" target="_blank" rel="noopener noreferrer" class="font-bold hover:underline transition-all">Shining Form Design</a>
+  </p>
+</footer>

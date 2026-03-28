@@ -1,0 +1,38 @@
+---
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
+
+const settings = await sanityClient.fetch(`
+  *[_type == "siteSettings"][0]{
+    title, logo, navbarBg{hex}, navbarText{hex}, brandSecondary{hex}, navLinks[]{ label, url }
+  }
+`);
+
+const navBgHex = settings?.navbarBg?.hex || '#28B579';
+const navTextHex = settings?.navbarText?.hex || '#593569';
+const navHoverHex = settings?.brandSecondary?.hex || '#FF7D00';
+---
+
+<nav 
+  class="sticky top-0 z-[100] w-full px-6 border-b border-white/10 backdrop-blur-md shadow-md flex items-center"
+  style={`background-color: ${navBgHex}F2; height: var(--nav-height); --nav-hover: ${navHoverHex}; --nav-text: ${navTextHex};`}
+>
+  <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+    <a href="/" class="font-bold text-2xl tracking-tight font-[family-name:var(--font-heading)]" style="color: var(--nav-text);">
+      {settings?.logo ? <img src={urlFor(settings.logo).height(80).url()} alt={settings.title} class="h-10 w-auto" /> : <span>{settings?.title}</span>}
+    </a>
+    <ul class="flex gap-8">
+      {settings?.navLinks?.map((link: any) => (
+        <li><a href={link.url} class="nav-link text-sm font-bold uppercase tracking-widest">{link.label}</a></li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .nav-link { color: var(--nav-text); transition: color 0.2s; }
+  .nav-link:hover { color: var(--nav-hover); }
+</style>

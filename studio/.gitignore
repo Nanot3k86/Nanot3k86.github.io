@@ -1,0 +1,21 @@
+# --- System Files (Windows Specific) ---
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# --- Node / Astro / Sanity ---
+node_modules/
+dist/
+.astro/
+.cache/
+
+# --- Environment & Security ---
+.env
+.env.*
+!.env.example
+
+# --- Logs & Debugging ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

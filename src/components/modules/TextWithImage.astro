@@ -1,0 +1,61 @@
+---
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+
+const { 
+  heading, headingColor, tagline, taglineColor, text, textColor, 
+  backgroundColor, backgroundColorEnd, gradientAngle, image, layout 
+} = Astro.props;
+
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
+
+// Local Override Logic: Only applies if a color is selected in the Studio
+const start = backgroundColor?.hex;
+const end = backgroundColorEnd?.hex;
+const angle = gradientAngle || 135;
+
+let localBgStyle = "";
+if (start) {
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+
+const hColor = headingColor?.hex || 'inherit';
+const tColor = taglineColor?.hex || 'inherit';
+const bColor = textColor?.hex || 'inherit';
+---
+
+<section class="py-24 px-6" style={localBgStyle}>
+  <div class={`max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 ${layout === 'right' ? 'md:flex-row-reverse' : ''}`}>
+    <div class="w-full md:w-1/2 flex justify-center">
+      {image && (
+        <img 
+          src={urlFor(image).width(1200).url()} 
+          alt={heading || "Studio Content"}
+          class="w-auto h-auto max-w-full max-h-[65vh] object-contain shadow-2xl rounded-sm"
+          loading="lazy"
+        />
+      )}
+    </div>
+
+    <div class="w-full md:w-1/2 flex flex-col gap-6">
+      {tagline && (
+        <span class="text-xs uppercase tracking-[0.4em] font-bold" style={`color: ${tColor};`}>
+          {tagline}
+        </span>
+      )}
+      {heading && (
+        <h2 class="text-4xl md:text-7xl font-bold font-[family-name:var(--font-heading)] leading-[1.1]" style={`color: ${hColor};`}>
+          {heading}
+        </h2>
+      )}
+      {text && (
+        <p class="text-lg md:text-xl leading-relaxed opacity-90 font-[family-name:var(--font-body)]" style={`color: ${bColor};`}>
+          {text}
+        </p>
+      )}
+    </div>
+  </div>
+</section>
