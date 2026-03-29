@@ -19,6 +19,9 @@ jobs:
 
       - name: Install, build, and upload your site
         uses: withastro/action@v3
+        env:
+          # This pulls the key from your GitHub Repository Secrets
+          PUBLIC_WEB3FORMS_KEY: ${{ secrets.PUBLIC_WEB3FORMS_KEY }}
 
   deploy:
     needs: build
