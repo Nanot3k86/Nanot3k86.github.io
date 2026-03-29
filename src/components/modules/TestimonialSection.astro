@@ -1,5 +1,6 @@
 ---
-import { urlFor } from '../../utils/image';
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
 
 const { 
   heading, 
@@ -9,6 +10,9 @@ const {
   backgroundColorEnd,
   gradientAngle
 } = Astro.props;
+
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
 
 // Local Override Logic
 const start = backgroundColor?.hex;
@@ -26,54 +30,63 @@ if (start) {
 const headHex = headingColor?.hex || 'var(--brand-text)';
 ---
 
-<section class="py-20" style={localBgStyle}>
-  <div class="max-w-7xl mx-auto px-4 md:px-8">
+<section class="py-24 px-6 md:px-12" style={localBgStyle}>
+  <div class="max-w-7xl mx-auto">
+    
+    {/* Left-aligned heading to match the new site-wide composition */}
     {heading && (
-      <h2 
-        class="text-4xl md:text-5xl font-bold text-center mb-16 font-[family-name:var(--font-heading)]"
-        style={`color: ${headHex};`}
-      >
-        {heading}
-      </h2>
+      <div class="mb-16 max-w-3xl">
+        <h2 
+          class="text-4xl md:text-5xl font-bold font-[family-name:var(--font-heading)] leading-tight"
+          style={`color: ${headHex};`}
+        >
+          {heading}
+        </h2>
+      </div>
     )}
     
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
       {testimonials?.map((t: any) => {
-        // Individual item fallbacks
         const quoteHex = t.quoteColor?.hex || 'var(--brand-text)';
         const authorHex = t.authorColor?.hex || 'var(--brand-text)';
         const roleHex = t.roleColor?.hex || 'var(--brand-text)';
 
         return (
-          <div class="bg-white/40 backdrop-blur-md p-8 rounded-3xl shadow-sm border border-[var(--brand-primary)]/10 flex flex-col h-full hover:shadow-lg transition-all duration-300">
-            <p 
-              class="italic mb-8 flex-grow font-[family-name:var(--font-body)] text-lg leading-relaxed opacity-90"
-              style={`color: ${quoteHex};`}
-            >
-              "{t.quote}"
-            </p>
-            <div class="flex items-center gap-4 border-t border-[var(--brand-primary)]/10 pt-6">
+          <div class="bg-white/5 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-white/10 flex flex-col h-full hover:bg-white/10 transition-all duration-500 group">
+            <div class="mb-8 flex-grow">
+              <svg class="w-8 h-8 mb-4 opacity-20" fill="currentColor" viewBox="0 0 24 24" style={`color: ${quoteHex};`}>
+                <path d="M14.017 21L14.017 18C14.017 16.899 14.914 16 16.017 16H19.017V14H15.017C14.465 14 14.017 13.552 14.017 13V10C14.017 8.897 14.914 8 16.017 8H20.017C20.569 8 21.017 8.448 21.017 9V15C21.017 17.761 18.778 20 16.017 20H14.017V21ZM5.017 21V18C5.017 16.899 5.914 16 7.017 16H10.017V14H6.017C5.465 14 5.017 13.552 5.017 13V10C5.017 8.897 5.914 8 7.017 8H11.017C11.569 8 12.017 8.448 12.017 9V15C12.017 17.761 9.778 20 7.017 20H5.017V21Z" />
+              </svg>
+              <p 
+                class="italic font-[family-name:var(--font-body)] text-lg leading-relaxed opacity-90"
+                style={`color: ${quoteHex};`}
+              >
+                {t.quote}
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4 pt-6 border-t border-white/10">
               {t.photo && (
                 <img 
-                  src={urlFor(t.photo).width(100).height(100).url()} 
+                  src={urlFor(t.photo).width(120).height(120).auto('format').url()} 
                   alt={t.author || "Testimonial Author"} 
-                  class="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-[var(--brand-primary)]/20"
+                  class="w-12 h-12 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 border border-white/20"
                   loading="lazy"
                 />
               )}
-              <div>
-                <p 
-                  class="font-bold font-[family-name:var(--font-heading)] text-xl"
+              <div class="flex flex-col">
+                <span 
+                  class="font-bold font-[family-name:var(--font-heading)] text-lg tracking-tight"
                   style={`color: ${authorHex};`}
                 >
                   {t.author}
-                </p>
-                <p 
-                  class="text-sm opacity-70 font-[family-name:var(--font-body)] tracking-wide uppercase"
+                </span>
+                <span 
+                  class="text-[10px] uppercase font-[family-name:var(--font-body)] tracking-[0.2em] opacity-60"
                   style={`color: ${roleHex};`}
                 >
                   {t.role}
-                </p>
+                </span>
               </div>
             </div>
           </div>

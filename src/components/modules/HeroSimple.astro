@@ -14,14 +14,12 @@ const {
   gradientAngle
 } = Astro.props;
 
-// Local Override & Overlay Logic
 const start = backgroundColor?.hex;
 const end = backgroundColorEnd?.hex;
 const angle = gradientAngle || 135;
 let localBgStyle = "";
 
 if (backgroundImage) {
-  // If image exists, apply colors as a semi-transparent overlay (CC hex = 80% opacity)
   if (start && end) {
     localBgStyle = `background: linear-gradient(${angle}deg, ${start}CC 0%, ${end}CC 100%), url('${backgroundImage}') center/cover !important;`;
   } else if (start) {
@@ -30,13 +28,11 @@ if (backgroundImage) {
     localBgStyle = `background: url('${backgroundImage}') center/cover !important;`;
   }
 } else if (start) {
-  // Standard gradient/solid background logic
   localBgStyle = end 
     ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
     : `background: ${start} !important;`;
 }
 
-// Fallbacks
 const headHex = headlineColor?.hex || 'var(--brand-text)';
 const subHex = subheadlineColor?.hex || 'var(--brand-text)';
 const btnBgHex = buttonColor?.hex || 'var(--brand-secondary)';
@@ -44,36 +40,38 @@ const btnTextHex = buttonTextColor?.hex || '#ffffff';
 ---
 
 <section 
-  class="w-full py-32 relative overflow-hidden border-b border-black/5"
+  class="w-full py-32 md:py-48 relative overflow-hidden flex items-center border-b border-black/5"
   style={localBgStyle}
 >
-  <div class="max-w-4xl mx-auto text-center px-4 relative z-10">
-    {headline && (
-      <h1 
-        class="text-5xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg font-[family-name:var(--font-heading)] leading-tight"
-        style={`color: ${headHex};`}
-      >
-        {headline}
-      </h1>
-    )}
-    
-    {subheadline && (
-      <p 
-        class="text-center text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto drop-shadow-md font-[family-name:var(--font-body)] leading-relaxed"
-        style={`color: ${subHex};`}
-      >
-        {subheadline}
-      </p>
-    )}
+  <div class="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
+    <div class="max-w-4xl text-left">
+      {headline && (
+        <h1 
+          class="text-5xl md:text-8xl font-bold tracking-tight mb-8 drop-shadow-lg font-[family-name:var(--font-heading)] leading-[1.05]"
+          style={`color: ${headHex};`}
+        >
+          {headline}
+        </h1>
+      )}
+      
+      {subheadline && (
+        <p 
+          class="text-xl md:text-2xl opacity-90 mb-12 max-w-2xl drop-shadow-md font-[family-name:var(--font-body)] leading-relaxed"
+          style={`color: ${subHex};`}
+        >
+          {subheadline}
+        </p>
+      )}
 
-    {buttonText && (
-      <a 
-        href={buttonLink || "#"} 
-        class="inline-block hover:brightness-110 font-bold py-4 px-10 rounded-full transition-all shadow-xl hover:scale-105 font-[family-name:var(--font-body)] uppercase tracking-widest text-sm"
-        style={`background-color: ${btnBgHex}; color: ${btnTextHex};`}
-      >
-        {buttonText}
-      </a>
-    )}
+      {buttonText && (
+        <a 
+          href={buttonLink || "#"} 
+          class="inline-block hover:brightness-110 font-bold py-5 px-12 rounded-full transition-all shadow-2xl hover:scale-105 active:scale-95 font-[family-name:var(--font-body)] uppercase tracking-[0.2em] text-xs md:text-sm"
+          style={`background-color: ${btnBgHex}; color: ${btnTextHex};`}
+        >
+          {buttonText}
+        </a>
+      )}
+    </div>
   </div>
 </section>

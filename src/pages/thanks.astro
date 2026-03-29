@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Message Sent | Shining Form">
+  <section class="py-32 md:py-48 px-6 md:px-12 flex items-center min-h-[60vh]">
+    <div class="max-w-7xl mx-auto w-full">
+      <div class="max-w-3xl text-left flex flex-col gap-8">
+        
+        {/* Visual Indicator */}
+        <div class="w-12 h-12 rounded-full bg-[var(--brand-primary)]/20 border border-[var(--brand-primary)]/30 flex items-center justify-center">
+          <svg class="w-6 h-6 text-[var(--brand-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <h1 class="text-5xl md:text-7xl font-bold font-[family-name:var(--font-heading)] leading-tight">
+            Message Received.
+          </h1>
+          <p class="text-xl md:text-2xl opacity-70 font-[family-name:var(--font-body)] leading-relaxed max-w-xl">
+            Thank you for reaching out. Your inquiry has been logged, and I will get back to you shortly.
+          </p>
+        </div>
+
+        <div class="pt-4">
+          <a 
+            href="/" 
+            class="inline-block py-4 px-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 font-bold uppercase tracking-[0.2em] text-xs hover:bg-white/10 hover:scale-105 active:scale-95 transition-all"
+          >
+            Return to Studio
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

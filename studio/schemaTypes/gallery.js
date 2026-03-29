@@ -5,6 +5,8 @@ export default {
   fields: [
     { name: 'headline', title: 'Gallery Headline', type: 'string' },
     { name: 'headlineColor', title: 'Headline Color', type: 'color' },
+    { name: 'subheading', title: 'Subheading', type: 'text' },
+    { name: 'subheadingColor', title: 'Subheading Color', type: 'color' },
     { 
       name: 'backgroundColor', 
       title: 'Local Background (Start)', 
@@ -43,6 +45,12 @@ export default {
               type: 'image',
               options: { hotspot: true },
               description: 'Upload the image, or the thumbnail cover art for your video/audio.'
+            },
+            {
+              name: 'caption',
+              title: 'Caption',
+              type: 'string',
+              description: 'Text displayed on hover and in the lightbox.'
             },
             {
               name: 'alt',

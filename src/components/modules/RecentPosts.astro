@@ -1,5 +1,7 @@
 ---
-import { urlFor } from '../../utils/image';
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+
 const { 
   heading, 
   posts, 
@@ -9,6 +11,9 @@ const {
   backgroundColorEnd,
   gradientAngle
 } = Astro.props;
+
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
 
 // Local Override Logic
 const start = backgroundColor?.hex;
@@ -27,55 +32,71 @@ const headHex = headingColor?.hex || 'var(--brand-text)';
 const descHex = descriptionColor?.hex || 'var(--brand-text)';
 ---
 
-<section 
-  class="py-20 px-4"
-  style={localBgStyle}
->
+<section class="py-24 px-6 md:px-12" style={localBgStyle}>
   <div class="max-w-7xl mx-auto">
-    <div class="flex justify-between items-end mb-12 border-b border-[var(--brand-primary)]/20 pb-4">
-      <h2 
-        class="text-4xl font-bold font-[family-name:var(--font-heading)]"
-        style={`color: ${headHex};`}
-      >
-        {heading}
-      </h2>
-    </div>
+    
+    {/* Header block left-justified to match Gallery/TextWithImage */}
+    {heading && (
+      <div class="mb-16 max-w-3xl">
+        <h2 
+          class="text-4xl md:text-5xl font-bold font-[family-name:var(--font-heading)] leading-tight"
+          style={`color: ${headHex};`}
+        >
+          {heading}
+        </h2>
+      </div>
+    )}
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {posts?.map((post: any) => {
-        // Post-specific accent color fallback
-        const postAccent = post.accentColor?.hex || 'var(--brand-secondary)';
+        const postAccent = post.accentColor?.hex || 'var(--brand-primary)';
         
         return (
-          <article 
-            class="group cursor-pointer"
+          <a 
+            href={`/blog/${post.slug?.current || '#'}`}
+            class="group flex flex-col bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:bg-white/10 transition-all duration-500 shadow-lg"
             style={`--post-accent: ${postAccent};`}
           >
-            <div class="overflow-hidden rounded-2xl mb-6 shadow-sm border border-[var(--brand-primary)]/10">
-              {post.mainImage && (
+            {/* Image Container */}
+            <div class="aspect-video overflow-hidden bg-black/20">
+              {post.mainImage ? (
                 <img 
-                  src={urlFor(post.mainImage).width(600).height(400).url()} 
-                  alt={post.title} 
-                  class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
+                  src={urlFor(post.mainImage).width(800).height(450).auto('format').url()} 
+                  alt={post.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                   loading="lazy"
                 />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center text-white/20 font-bold uppercase tracking-widest text-xs">No Preview</div>
               )}
             </div>
             
-            <h3 
-              class="text-2xl font-bold mb-3 transition-colors font-[family-name:var(--font-heading)] leading-snug group-hover:text-[var(--post-accent)]"
-              style={`color: ${headHex};`}
-            >
-              {post.title}
-            </h3>
-            
-            <p 
-              class="opacity-80 line-clamp-2 font-[family-name:var(--font-body)] leading-relaxed"
-              style={`color: ${descHex};`}
-            >
-              {post.excerpt}
-            </p>
-          </article>
+            {/* Content Area */}
+            <div class="p-8 flex flex-col flex-grow">
+              <h3 
+                class="text-2xl font-bold mb-4 font-[family-name:var(--font-heading)] leading-snug transition-colors duration-300 group-hover:text-[var(--post-accent)]"
+                style={`color: ${headHex};`}
+              >
+                {post.title}
+              </h3>
+              
+              {post.excerpt && (
+                <p 
+                  class="text-sm opacity-80 line-clamp-3 font-[family-name:var(--font-body)] leading-relaxed mb-6"
+                  style={`color: ${descHex};`}
+                >
+                  {post.excerpt}
+                </p>
+              )}
+
+              <div class="mt-auto">
+                <span class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 group-hover:gap-4" style={`color: ${postAccent};`}>
+                  View Post 
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
         );
       })}
     </div>
@@ -83,7 +104,7 @@ const descHex = descriptionColor?.hex || 'var(--brand-text)';
 </section>
 
 <style>
-  /* This allows the tailwind class group-hover:text-[var(--post-accent)] to function */
+  /* Forced override for Sanity hex colors on hover */
   .group:hover h3 {
     color: var(--post-accent) !important;
   }

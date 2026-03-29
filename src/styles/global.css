@@ -1,4 +1,65 @@
-/* src/styles/global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* These match your BaseLayout variables */
+    --brand-primary: #28B579;
+    --brand-secondary: #FF7D00;
+    --brand-text: #593569;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply antialiased;
+    background: var(--global-section-bg);
+    color: var(--brand-text);
+    font-family: var(--font-body);
+    /* Prevents layout shift from scrollbar appearance */
+    overflow-y: scroll;
+  }
+
+  /* Editorial Heading Logic */
+  h1, h2, h3, h4 {
+    @apply tracking-tight;
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+
+  /* Custom Selection Color using Brand Primary */
+  ::selection {
+    background-color: var(--brand-primary);
+    color: white;
+  }
+
+  /* Brand-specific Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-primary);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-secondary);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Glassmorphism utility if needed for non-tailwind components */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+}

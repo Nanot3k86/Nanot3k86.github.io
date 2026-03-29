@@ -10,7 +10,6 @@ const {
 const builder = imageUrlBuilder(sanityClient);
 const urlFor = (source: any) => builder.image(source);
 
-// Local Override Logic: Only applies if a color is selected in the Studio
 const start = backgroundColor?.hex;
 const end = backgroundColorEnd?.hex;
 const angle = gradientAngle || 135;
@@ -27,20 +26,24 @@ const tColor = taglineColor?.hex || 'inherit';
 const bColor = textColor?.hex || 'inherit';
 ---
 
-<section class="py-24 px-6" style={localBgStyle}>
-  <div class={`max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 ${layout === 'right' ? 'md:flex-row-reverse' : ''}`}>
-    <div class="w-full md:w-1/2 flex justify-center">
+<section class="py-24 px-6 md:px-12" style={localBgStyle}>
+  {/* Flex container set to justify-start and top-aligned (items-start). Grouped with tight gap. Removed mx-auto. */}
+  <div class={`max-w-7xl flex flex-col md:flex-row items-start justify-start gap-12 ${layout === 'right' ? 'md:flex-row-reverse' : ''}`}>
+    
+    {/* Image container: Width auto, no centered alignment. Block is grouped with text. */}
+    <div class="w-full md:w-auto flex-shrink-0">
       {image && (
         <img 
           src={urlFor(image).width(1200).url()} 
           alt={heading || "Studio Content"}
-          class="w-auto h-auto max-w-full max-h-[65vh] object-contain shadow-2xl rounded-sm"
+          class="w-auto h-auto max-w-full md:max-w-[350px] lg:max-w-[450px] max-h-[65vh] object-contain shadow-2xl rounded-sm block"
           loading="lazy"
         />
       )}
     </div>
 
-    <div class="w-full md:w-1/2 flex flex-col gap-6">
+    {/* Text container: Fills remaining space, sitting closely to the image. */}
+    <div class="w-full flex-grow flex flex-col gap-6 text-left max-w-3xl">
       {tagline && (
         <span class="text-xs uppercase tracking-[0.4em] font-bold" style={`color: ${tColor};`}>
           {tagline}

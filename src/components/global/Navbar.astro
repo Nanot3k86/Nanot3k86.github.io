@@ -2,20 +2,15 @@
 import { sanityClient } from "sanity:client";
 import imageUrlBuilder from "@sanity/image-url";
 
+const { settings } = Astro.props;
 const builder = imageUrlBuilder(sanityClient);
 const urlFor = (source: any) => builder.image(source);
 
-const settings = await sanityClient.fetch(`
-  *[_type == "siteSettings"][0]{
-    title, logo, navbarBg{hex}, navbarBgEnd{hex}, navbarOpacity, navbarText{hex}, brandSecondary{hex}, navLinks[]{ label, url }
-  }
-`);
-
-const navBgStart = settings?.navbarBg?.hex || '#28B579';
+const navBgStart = settings?.navbarBg?.hex || 'transparent';
 const navBgEnd = settings?.navbarBgEnd?.hex;
 const navOpacity = (settings?.navbarOpacity ?? 95) / 100;
-const navTextHex = settings?.navbarText?.hex || '#593569';
-const navHoverHex = settings?.brandSecondary?.hex || '#FF7D00';
+const navTextHex = settings?.navbarText?.hex || 'var(--brand-text)';
+const navHoverHex = settings?.brandSecondary?.hex || 'var(--brand-primary)';
 
 const navBackground = navBgEnd 
   ? `linear-gradient(180deg, ${navBgStart}, ${navBgEnd})` 
@@ -23,30 +18,38 @@ const navBackground = navBgEnd
 ---
 
 <nav 
-  class="sticky top-0 z-[100] w-full px-6 border-b border-white/10 backdrop-blur-md shadow-md"
-  style={`background: ${navBackground} !important; opacity: ${navOpacity}; --nav-hover: ${navHoverHex}; --nav-text: ${navTextHex};`}
+  class="sticky top-0 z-[100] w-full px-6 md:px-12 border-b border-white/10 backdrop-blur-md transition-all duration-300"
+  style={`background: ${navBackground}; opacity: ${navOpacity}; --nav-hover: ${navHoverHex}; --nav-text: ${navTextHex};`}
 >
   <div class="max-w-7xl mx-auto w-full flex justify-between items-center" style="height: var(--nav-height);">
-    <a href="/" class="flex-shrink-0 font-bold text-2xl tracking-tight font-[family-name:var(--font-heading)]" style="color: var(--nav-text);">
-      {settings?.logo ? <img src={urlFor(settings.logo).height(80).url()} alt={settings.title} class="h-10 w-auto" /> : <span>{settings?.title}</span>}
+    <a href="/" class="flex-shrink-0 font-bold text-2xl tracking-tighter font-[family-name:var(--font-heading)] transition-transform hover:scale-105" style="color: var(--nav-text);">
+      {settings?.logo ? 
+        <img src={urlFor(settings.logo).height(100).auto('format').url()} alt={settings.title} class="h-10 w-auto object-contain" /> 
+        : <span>{settings?.title}</span>
+      }
     </a>
 
-    <ul class="hidden md:flex gap-8">
+    <ul class="hidden md:flex gap-10">
       {settings?.navLinks?.map((link: any) => (
-        <li><a href={link.url} class="nav-link text-sm font-bold uppercase tracking-widest">{link.label}</a></li>
+        <li>
+          <a href={link.url} class="nav-link text-[10px] font-bold uppercase tracking-[0.3em]">
+            {link.label}
+          </a>
+        </li>
       ))}
     </ul>
 
-    <button id="menu-toggle" class="md:hidden p-2" style="color: var(--nav-text);">
+    <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle Menu" style="color: var(--nav-text);">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
       </svg>
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full border-b border-white/10 p-6 flex flex-col space-y-4 text-center shadow-xl" style={`background: ${navBackground};`}>
+  {/* Mobile Menu - Matching the site's glassmorphism */}
+  <div id="mobile-menu" class="hidden absolute left-0 right-0 top-full border-b border-white/10 p-8 flex flex-col space-y-6 text-left backdrop-blur-2xl shadow-2xl" style={`background: ${navBackground};`}>
     {settings?.navLinks?.map((link: any) => (
-      <a href={link.url} class="nav-link text-sm font-bold uppercase tracking-widest">{link.label}</a>
+      <a href={link.url} class="nav-link text-xs font-bold uppercase tracking-[0.2em]">{link.label}</a>
     ))}
   </div>
 </nav>
@@ -57,10 +60,11 @@ const navBackground = navBgEnd
 
   btn?.addEventListener('click', () => {
     menu?.classList.toggle('hidden');
+    menu?.classList.toggle('flex');
   });
 </script>
 
 <style>
-  .nav-link { color: var(--nav-text); transition: color 0.2s; }
-  .nav-link:hover { color: var(--nav-hover); }
+  .nav-link { color: var(--nav-text); transition: all 0.3s ease; opacity: 0.7; }
+  .nav-link:hover { color: var(--nav-hover); opacity: 1; transform: translateY(-1px); }
 </style>

@@ -9,24 +9,44 @@ const { title, seo: pageSeo } = Astro.props;
 const builder = imageUrlBuilder(sanityClient);
 const urlFor = (source: any) => builder.image(source);
 
+// Single Source of Truth: Fetching all global settings once
 const settings = await sanityClient.fetch(`
   *[_type == "siteSettings"][0]{
-    title, favicon, brandPrimary { hex }, brandSecondary { hex }, brandText { hex },
-    globalSectionBg { hex }, globalSectionBgEnd { hex }, globalGradientAngle,
+    title, 
+    favicon, 
+    logo,
+    brandPrimary { hex }, 
+    brandSecondary { hex }, 
+    brandText { hex },
+    globalSectionBg { hex }, 
+    globalSectionBgEnd { hex }, 
+    globalGradientAngle,
+    navbarBg { hex },
+    navbarBgEnd { hex },
+    navbarOpacity,
+    navbarText { hex },
+    navLinks[]{ label, url },
+    footerBg { hex },
+    footerBgEnd { hex },
+    footerOpacity,
+    footerText { hex },
     seo { metaTitle, metaDescription, shareImage { asset->{ url } } }
   }
 `);
 
-const finalTitle = pageSeo?.metaTitle || title || settings?.title || "Studio";
+// SEO & Metadata logic
+const finalTitle = pageSeo?.metaTitle || title || settings?.title || "Shining Form Studio";
 const finalDesc = pageSeo?.metaDescription || settings?.seo?.metaDescription || "";
 const finalShareImage = pageSeo?.shareImage?.asset?.url || settings?.seo?.shareImage?.asset?.url || "";
 const faviconUrl = settings?.favicon ? urlFor(settings.favicon).width(32).height(32).url() : '/favicon.svg';
 
+// Brand Variables
 const brandPrimary = settings?.brandPrimary?.hex || '#28B579';
 const brandSecondary = settings?.brandSecondary?.hex || '#FF7D00';
 const brandText = settings?.brandText?.hex || '#593569';
 
-const gStart = settings?.globalSectionBg?.hex || 'transparent';
+// Global Background Logic (Prevents white flashes on load)
+const gStart = settings?.globalSectionBg?.hex || '#000000';
 const gEnd = settings?.globalSectionBgEnd?.hex;
 const gAngle = settings?.globalGradientAngle || 135;
 const globalBg = gEnd ? `linear-gradient(${gAngle}deg, ${gStart} 0%, ${gEnd} 100%)` : gStart;
@@ -36,7 +56,6 @@ const globalBg = gEnd ? `linear-gradient(${gAngle}deg, ${gStart} 0%, ${gEnd} 100
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="google-site-verification" content="PASTE_YOUR_CODE_HERE" />
     <link rel="icon" type="image/svg+xml" href={faviconUrl} />
     <link rel="canonical" href={Astro.url} />
     
@@ -63,11 +82,14 @@ const globalBg = gEnd ? `linear-gradient(${gAngle}deg, ${gStart} 0%, ${gEnd} 100
     </script>
   </head>
   <body class="antialiased flex flex-col min-h-screen">
-    <Navbar />
+    {/* Passing settings prop to sub-components to save API credits */}
+    <Navbar settings={settings} />
+    
     <main class="flex-grow">
       <slot />
     </main>
-    <Footer />
+    
+    <Footer settings={settings} />
   </body>
 </html>
 
@@ -82,7 +104,13 @@ const globalBg = gEnd ? `linear-gradient(${gAngle}deg, ${gStart} 0%, ${gEnd} 100
     --font-body: 'Montserrat', sans-serif;
   }
   
+  body { 
+    background: var(--global-section-bg); 
+    color: var(--brand-text); 
+    font-family: var(--font-body); 
+    margin: 0; 
+  }
+
   section { background: var(--global-section-bg); }
-  body { background-color: #B3B5B4; color: var(--brand-text); font-family: var(--font-body); margin: 0; }
   h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 </style>

@@ -1,54 +1,112 @@
 ---
-const { heading, subheading, backgroundColor, backgroundColorEnd, gradientAngle, buttonColor, buttonTextColor, headingColor, subheadingColor } = Astro.props;
+import { sanityClient } from "sanity:client";
 
-const start = backgroundColor?.hex || '#1F705B';
+const { 
+  heading, 
+  subheading, 
+  backgroundColor, 
+  backgroundColorEnd, 
+  gradientAngle, 
+  buttonColor, 
+  buttonTextColor, 
+  headingColor, 
+  subheadingColor 
+} = Astro.props;
+
+// Standardized Background Logic
+const start = backgroundColor?.hex;
 const end = backgroundColorEnd?.hex;
 const angle = gradientAngle || 135;
-let localBgStyle = end 
-  ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
-  : `background: ${start} !important;`;
+let localBgStyle = "";
+
+if (start) {
+  localBgStyle = end 
+    ? `background: linear-gradient(${angle}deg, ${start} 0%, ${end} 100%) !important;` 
+    : `background: ${start} !important;`;
+}
+
+// Fallbacks
+const headHex = headingColor?.hex || '#ffffff';
+const subHex = subheadingColor?.hex || '#ffffff';
+const btnBg = buttonColor?.hex || '#ffffff';
+const btnText = buttonTextColor?.hex || '#000000';
 ---
 
-<section class="py-24 px-6" style={localBgStyle}>
-  <div class="max-w-3xl mx-auto bg-white/10 backdrop-blur-xl p-8 md:p-12 rounded-2xl shadow-2xl border border-white/20">
-    <div class="text-center mb-10">
-      <h2 class="text-4xl font-bold mb-4 font-[family-name:var(--font-heading)]" style={`color: ${headingColor?.hex || '#ffffff'};`}>
-        {heading || "Get in Touch"}
-      </h2>
-      <p class="text-lg opacity-90" style={`color: ${subheadingColor?.hex || '#ffffff'};`}>
-        {subheading || "Let's build something incredible together."}
-      </p>
+<section class="py-24 px-6 md:px-12" style={localBgStyle}>
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-12 md:gap-20">
+    
+    {/* Left Column: Heading & Subheading */}
+    <div class="w-full lg:w-1/3 flex flex-col gap-6 text-left">
+      {heading && (
+        <h2 
+          class="text-4xl md:text-6xl font-bold font-[family-name:var(--font-heading)] leading-[1.1]" 
+          style={`color: ${headHex};`}
+        >
+          {heading}
+        </h2>
+      )}
+      {subheading && (
+        <p 
+          class="text-lg md:text-xl opacity-80 leading-relaxed font-[family-name:var(--font-body)]" 
+          style={`color: ${subHex};`}
+        >
+          {subheading}
+        </p>
+      )}
     </div>
 
-    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
-      <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_KEY}>
-      <input type="hidden" name="redirect" value="https://shiningform.com/thanks">
-      <input type="hidden" name="subject" value="New Website Inquiry">
-      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+    {/* Right Column: The Form Card */}
+    <div class="w-full lg:w-2/3 bg-white/5 backdrop-blur-xl p-8 md:p-12 rounded-2xl shadow-2xl border border-white/10">
+      <form action="https://api.web3forms.com/submit" method="POST" class="space-y-8">
+        <input type="hidden" name="access_key" value={import.meta.env.PUBLIC_WEB3FORMS_KEY}>
+        <input type="hidden" name="redirect" value="https://shiningform.com/thanks">
+        <input type="hidden" name="subject" value="New Website Inquiry">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-white text-sm font-bold mb-2 uppercase tracking-widest">Name</label>
-          <input type="text" name="name" required class="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors" placeholder="Your Name" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="group">
+            <label class="block text-white text-[10px] font-bold mb-3 uppercase tracking-[0.3em] opacity-50 group-focus-within:opacity-100 transition-opacity">Name</label>
+            <input 
+              type="text" 
+              name="name" 
+              required 
+              class="w-full bg-white/5 border-b border-white/20 px-0 py-3 text-white focus:outline-none focus:border-[var(--brand-primary)] transition-colors placeholder:text-white/20" 
+              placeholder="Your Name" 
+            />
+          </div>
+          <div class="group">
+            <label class="block text-white text-[10px] font-bold mb-3 uppercase tracking-[0.3em] opacity-50 group-focus-within:opacity-100 transition-opacity">Email</label>
+            <input 
+              type="email" 
+              name="email" 
+              required 
+              class="w-full bg-white/5 border-b border-white/20 px-0 py-3 text-white focus:outline-none focus:border-[var(--brand-primary)] transition-colors placeholder:text-white/20" 
+              placeholder="Email Address" 
+            />
+          </div>
         </div>
-        <div>
-          <label class="block text-white text-sm font-bold mb-2 uppercase tracking-widest">Email</label>
-          <input type="email" name="email" required class="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors" placeholder="Email Address" />
+
+        <div class="group">
+          <label class="block text-white text-[10px] font-bold mb-3 uppercase tracking-[0.3em] opacity-50 group-focus-within:opacity-100 transition-opacity">Message</label>
+          <textarea 
+            name="message" 
+            rows="4" 
+            required 
+            class="w-full bg-white/5 border-b border-white/20 px-0 py-3 text-white focus:outline-none focus:border-[var(--brand-primary)] transition-colors placeholder:text-white/20 resize-none" 
+            placeholder="How can I help you?"
+          ></textarea>
         </div>
-      </div>
 
-      <div>
-        <label class="block text-white text-sm font-bold mb-2 uppercase tracking-widest">Message</label>
-        <textarea name="message" rows="5" required class="w-full bg-white/5 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition-colors" placeholder="How can I help you?"></textarea>
-      </div>
-
-      <button 
-        type="submit" 
-        class="w-full py-4 rounded-lg font-bold uppercase tracking-[0.2em] shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
-        style={`background-color: ${buttonColor?.hex || '#ffffff'}; color: ${buttonTextColor?.hex || '#000000'};`}
-      >
-        Send Message
-      </button>
-    </form>
+        <div class="pt-4">
+          <button 
+            type="submit" 
+            class="w-full md:w-auto px-12 py-4 rounded-lg font-bold uppercase tracking-[0.2em] shadow-lg hover:brightness-110 hover:translate-y-[-2px] active:translate-y-[0px] transition-all duration-300"
+            style={`background-color: ${btnBg}; color: ${btnText};`}
+          >
+            Send Message
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>

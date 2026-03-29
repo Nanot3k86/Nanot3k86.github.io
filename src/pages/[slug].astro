@@ -2,17 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { sanityClient } from "sanity:client";
 import imageUrlBuilder from "@sanity/image-url";
-
-// Modules
-import HeroSimple from '../components/modules/HeroSimple.astro';
-import FeatureGrid from '../components/modules/FeatureGrid.astro';
-import MasonryGallery from '../components/modules/MasonryGallery.astro';
-import TextWithImage from '../components/modules/TextWithImage.astro';
-import TestimonialSection from '../components/modules/TestimonialSection.astro';
-import CtaBanner from '../components/modules/CtaBanner.astro';
-import RecentPosts from '../components/modules/RecentPosts.astro';
-import FeaturedProduct from '../components/modules/FeaturedProduct.astro';
-import ContactForm from '../components/modules/ContactForm.astro';
+import RenderModules from '../components/RenderModules.astro';
+import { MODULES_QUERY } from '../utils/queries';
 
 export async function getStaticPaths() {
   const pages = await sanityClient.fetch(`*[_type == "page"]{ "params": { "slug": slug.current } }`);
@@ -23,40 +14,15 @@ const builder = imageUrlBuilder(sanityClient);
 const urlFor = (source: any) => builder.image(source);
 const { slug } = Astro.params;
 
-const PAGE_QUERY = `*[_type == "page" && slug.current == $slug][0]{
+const pageData = await sanityClient.fetch(`*[_type == "page" && slug.current == $slug][0]{
   title,
   seo { metaTitle, metaDescription, shareImage { asset->{ url } } },
-  modules[]{
-    ...,
-    _type == 'hero' => { ..., headlineColor{hex}, subheadlineColor{hex}, buttonColor{hex}, buttonTextColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle },
-    _type == 'ctaBanner' => { ..., headingColor{hex}, subheadingColor{hex}, buttonColor{hex}, buttonTextColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle },
-    _type == 'featuredProduct' => { ..., headingColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle, cardColor{hex}, productTitleColor{hex}, textColor{hex}, buttonColor{hex}, buttonTextColor{hex}, product->{title, price, description, productImage, buyLink, accentColor{hex}} },
-    _type == 'recentPosts' => { ..., headingColor{hex}, descriptionColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle, "posts": *[_type == "post"] | order(publishedAt desc)[0..2] { title, excerpt, mainImage, publishedAt, accentColor{hex} } },
-    _type == 'features' => { ..., titleColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle, cardBackgroundColor{hex}, cardTitleColor{hex}, cardTextColor{hex}, badgeColor{hex}, badgeTextColor{hex} },
-    _type == 'gallery' => { ..., headlineColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle, items[]{ mediaType, alt, videoUrl, "audioUrl": audioFile.asset->url, image{asset->, hotspot} } },
-    _type == 'textWithImage' => { ..., headingColor{hex}, taglineColor{hex}, textColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle, image{ asset->, hotspot } },
-    _type == 'testimonialSection' => { ..., headingColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle, testimonials[]{ ..., quoteColor{hex}, authorColor{hex}, roleColor{hex} } },
-    _type == 'contactForm' => { ..., headlineColor{hex}, subheadingColor{hex}, buttonColor{hex}, buttonTextColor{hex}, backgroundColor{hex}, backgroundColorEnd{hex}, gradientAngle }
-  }
-}`;
+  ${MODULES_QUERY}
+}`, { slug });
 
-const pageData = await sanityClient.fetch(PAGE_QUERY, { slug });
 if (!pageData) return Astro.redirect('/404');
 ---
 
 <BaseLayout title={pageData.title} seo={pageData.seo}>
-  {pageData.modules?.map((module: any) => {
-    switch (module._type) {
-      case "hero": return <HeroSimple {...module} backgroundImage={module.bgImage ? urlFor(module.bgImage).width(2000).url() : null} />;
-      case "features": return <FeatureGrid {...module} />;
-      case "gallery": return <MasonryGallery {...module} />;
-      case "textWithImage": return <TextWithImage {...module} />;
-      case "testimonialSection": return <TestimonialSection {...module} />;
-      case "ctaBanner": return <CtaBanner {...module} />;
-      case "recentPosts": return <RecentPosts {...module} />;
-      case "featuredProduct": return <FeaturedProduct {...module} />;
-      case "contactForm": return <ContactForm {...module} />;
-      default: return null;
-    }
-  })}
+  <RenderModules modules={pageData.modules} urlFor={urlFor} />
 </BaseLayout>

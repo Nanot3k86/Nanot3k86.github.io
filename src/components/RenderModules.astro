@@ -1,0 +1,28 @@
+---
+import HeroSimple from './modules/HeroSimple.astro';
+import FeatureGrid from './modules/FeatureGrid.astro';
+import MasonryGallery from './modules/MasonryGallery.astro';
+import TextWithImage from './modules/TextWithImage.astro';
+import TestimonialSection from './modules/TestimonialSection.astro';
+import CtaBanner from './modules/CtaBanner.astro';
+import RecentPosts from './modules/RecentPosts.astro';
+import FeaturedProduct from './modules/FeaturedProduct.astro';
+import ContactForm from './modules/ContactForm.astro';
+
+const { modules, urlFor } = Astro.props;
+---
+
+{modules?.map((module: any) => {
+  switch (module._type) {
+    case "hero": return <HeroSimple {...module} backgroundImage={module.bgImage ? urlFor(module.bgImage).width(2000).url() : null} />;
+    case "features": return <FeatureGrid {...module} />;
+    case "gallery": return <MasonryGallery {...module} />;
+    case "textWithImage": return <TextWithImage {...module} />;
+    case "testimonialSection": return <TestimonialSection {...module} />;
+    case "ctaBanner": return <CtaBanner {...module} />;
+    case "recentPosts": return <RecentPosts {...module} />;
+    case "featuredProduct": return <FeaturedProduct {...module} />;
+    case "contactForm": return <ContactForm {...module} />;
+    default: return null;
+  }
+})}
