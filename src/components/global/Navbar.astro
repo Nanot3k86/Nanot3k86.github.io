@@ -1,30 +1,47 @@
 ---
-// Navbar logic here
+import { sanityClient } from "sanity:client";
+import imageUrlBuilder from "@sanity/image-url";
+
+const builder = imageUrlBuilder(sanityClient);
+const urlFor = (source: any) => builder.image(source);
+
+const settings = await sanityClient.fetch(`
+  *[_type == "siteSettings"][0]{
+    title, logo, navbarBg{hex}, navbarText{hex}, brandSecondary{hex}, navLinks[]{ label, url }
+  }
+`);
+
+const navBgHex = settings?.navbarBg?.hex || '#28B579';
+const navTextHex = settings?.navbarText?.hex || '#593569';
+const navHoverHex = settings?.brandSecondary?.hex || '#FF7D00';
 ---
-<nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
-  <div class="max-w-7xl mx-auto flex justify-between items-center">
-    
-    <a href="/" class="flex-shrink-0">
-      <img src="/logo.svg" alt="Shining Form" class="h-8 w-auto" />
+
+<nav 
+  class="sticky top-0 z-[100] w-full px-6 border-b border-white/10 backdrop-blur-md shadow-md"
+  style={`background-color: ${navBgHex}F2; --nav-hover: ${navHoverHex}; --nav-text: ${navTextHex};`}
+>
+  <div class="max-w-7xl mx-auto w-full flex justify-between items-center" style="height: var(--nav-height);">
+    <a href="/" class="flex-shrink-0 font-bold text-2xl tracking-tight font-[family-name:var(--font-heading)]" style="color: var(--nav-text);">
+      {settings?.logo ? <img src={urlFor(settings.logo).height(80).url()} alt={settings.title} class="h-10 w-auto" /> : <span>{settings?.title}</span>}
     </a>
 
-    <div class="hidden md:flex space-x-8 items-center text-white/80 uppercase text-xs tracking-[0.2em]">
-      <a href="/work" class="hover:text-white transition-colors">Work</a>
-      <a href="/about" class="hover:text-white transition-colors">About</a>
-      <a href="/contact" class="px-4 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">Start Project</a>
-    </div>
+    <ul class="hidden md:flex gap-8">
+      {settings?.navLinks?.map((link: any) => (
+        <li><a href={link.url} class="nav-link text-sm font-bold uppercase tracking-widest">{link.label}</a></li>
+      ))}
+    </ul>
 
-    <button id="menu-toggle" class="md:hidden text-white p-2">
+    <button id="menu-toggle" class="md:hidden p-2" style="color: var(--nav-text);">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
       </svg>
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full bg-black border-b border-white/10 p-6 flex flex-col space-y-4 text-center">
-    <a href="/work" class="text-white uppercase tracking-widest">Work</a>
-    <a href="/about" class="text-white uppercase tracking-widest">About</a>
-    <a href="/contact" class="text-white uppercase tracking-widest">Contact</a>
+  <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full border-b border-white/10 p-6 flex flex-col space-y-4 text-center shadow-xl" style={`background-color: ${navBgHex};`}>
+    {settings?.navLinks?.map((link: any) => (
+      <a href={link.url} class="nav-link text-sm font-bold uppercase tracking-widest">{link.label}</a>
+    ))}
   </div>
 </nav>
 
@@ -36,3 +53,8 @@
     menu?.classList.toggle('hidden');
   });
 </script>
+
+<style>
+  .nav-link { color: var(--nav-text); transition: color 0.2s; }
+  .nav-link:hover { color: var(--nav-hover); }
+</style>
