@@ -27,8 +27,8 @@ const bColor = textColor?.hex || 'inherit';
 ---
 
 <section class="py-24 px-6 md:px-12" style={localBgStyle}>
-  {/* Flex container set to justify-start and top-aligned (items-start). Grouped with tight gap. Removed mx-auto. */}
-  <div class={`max-w-7xl flex flex-col md:flex-row items-start justify-start gap-12 ${layout === 'right' ? 'md:flex-row-reverse' : ''}`}>
+  {/* Added mx-auto back to center the container while keeping the content left-justified */}
+  <div class={`max-w-7xl mx-auto flex flex-col md:flex-row items-start justify-start gap-12 ${layout === 'right' ? 'md:flex-row-reverse' : ''}`}>
     
     {/* Image container: Width auto, no centered alignment. Block is grouped with text. */}
     <div class="w-full md:w-auto flex-shrink-0">
