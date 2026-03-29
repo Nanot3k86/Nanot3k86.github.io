@@ -1,14 +1,28 @@
 ---
 import { sanityClient } from "sanity:client";
 const currentYear = new Date().getFullYear();
-const data = await sanityClient.fetch(`*[_type == "siteSettings"][0]{ title, brandPrimary{hex}, brandText{hex}, footerBg{hex}, footerText{hex} }`);
+const data = await sanityClient.fetch(`
+  *[_type == "siteSettings"][0]{ 
+    title, brandPrimary{hex}, brandText{hex}, footerBg{hex}, footerBgEnd{hex}, footerOpacity, footerText{hex} 
+  }
+`);
 
-const footerBgHex = data?.footerBg?.hex || data?.brandPrimary?.hex || '#28B579';
-// Fixed the syntax error here:
+const footerBgStart = data?.footerBg?.hex || data?.brandPrimary?.hex || '#28B579';
+const footerBgEnd = data?.footerBgEnd?.hex;
+const footerOpacity = (data?.footerOpacity ?? 100) / 100;
 const footerTextHex = data?.footerText?.hex || data?.brandText?.hex || '#593569';
+
+const footerBackground = footerBgEnd 
+  ? `linear-gradient(135deg, ${footerBgStart}, ${footerBgEnd})` 
+  : footerBgStart;
 ---
-<footer class="w-full py-10 px-6 backdrop-blur-sm border-t border-white/5 text-center flex flex-col gap-2" style={`background-color: ${footerBgHex};`}>
-  <p class="text-xs uppercase tracking-widest font-bold" style={`color: ${footerTextHex}; opacity: 1;`}>&copy; {currentYear} {data?.title || "Studio"}</p>
+<footer 
+  class="w-full py-10 px-6 backdrop-blur-sm border-t border-white/5 text-center flex flex-col gap-2" 
+  style={`background: ${footerBackground} !important; opacity: ${footerOpacity};`}
+>
+  <p class="text-xs uppercase tracking-widest font-bold" style={`color: ${footerTextHex};`}>
+    &copy; {currentYear} {data?.title || "Studio"}
+  </p>
   
   <p 
     class="text-[10px] uppercase tracking-[0.2em] isolation-auto" 

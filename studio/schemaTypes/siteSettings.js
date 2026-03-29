@@ -28,9 +28,15 @@ export default {
       type: 'number',
       initialValue: 135
     },
+    // Navbar Settings
     { name: 'navbarBg', title: 'Navbar Background', type: 'color' },
+    { name: 'navbarBgEnd', title: 'Navbar Background (End/Gradient)', type: 'color' },
+    { name: 'navbarOpacity', title: 'Navbar Opacity (0-100)', type: 'number', validation: Rule => Rule.min(0).max(100), initialValue: 95 },
     { name: 'navbarText', title: 'Navbar Text Color', type: 'color' },
+    // Footer Settings
     { name: 'footerBg', title: 'Footer Background', type: 'color' },
+    { name: 'footerBgEnd', title: 'Footer Background (End/Gradient)', type: 'color' },
+    { name: 'footerOpacity', title: 'Footer Opacity (0-100)', type: 'number', validation: Rule => Rule.min(0).max(100), initialValue: 100 },
     { name: 'footerText', title: 'Footer Text Color', type: 'color' },
     {
       name: 'navLinks',

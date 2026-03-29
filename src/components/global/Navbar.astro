@@ -7,18 +7,24 @@ const urlFor = (source: any) => builder.image(source);
 
 const settings = await sanityClient.fetch(`
   *[_type == "siteSettings"][0]{
-    title, logo, navbarBg{hex}, navbarText{hex}, brandSecondary{hex}, navLinks[]{ label, url }
+    title, logo, navbarBg{hex}, navbarBgEnd{hex}, navbarOpacity, navbarText{hex}, brandSecondary{hex}, navLinks[]{ label, url }
   }
 `);
 
-const navBgHex = settings?.navbarBg?.hex || '#28B579';
+const navBgStart = settings?.navbarBg?.hex || '#28B579';
+const navBgEnd = settings?.navbarBgEnd?.hex;
+const navOpacity = (settings?.navbarOpacity ?? 95) / 100;
 const navTextHex = settings?.navbarText?.hex || '#593569';
 const navHoverHex = settings?.brandSecondary?.hex || '#FF7D00';
+
+const navBackground = navBgEnd 
+  ? `linear-gradient(135deg, ${navBgStart}, ${navBgEnd})` 
+  : navBgStart;
 ---
 
 <nav 
   class="sticky top-0 z-[100] w-full px-6 border-b border-white/10 backdrop-blur-md shadow-md"
-  style={`background-color: ${navBgHex}F2; --nav-hover: ${navHoverHex}; --nav-text: ${navTextHex};`}
+  style={`background: ${navBackground} !important; opacity: ${navOpacity}; --nav-hover: ${navHoverHex}; --nav-text: ${navTextHex};`}
 >
   <div class="max-w-7xl mx-auto w-full flex justify-between items-center" style="height: var(--nav-height);">
     <a href="/" class="flex-shrink-0 font-bold text-2xl tracking-tight font-[family-name:var(--font-heading)]" style="color: var(--nav-text);">
@@ -38,7 +44,7 @@ const navHoverHex = settings?.brandSecondary?.hex || '#FF7D00';
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full border-b border-white/10 p-6 flex flex-col space-y-4 text-center shadow-xl" style={`background-color: ${navBgHex};`}>
+  <div id="mobile-menu" class="hidden md:hidden absolute left-0 right-0 top-full border-b border-white/10 p-6 flex flex-col space-y-4 text-center shadow-xl" style={`background: ${navBackground};`}>
     {settings?.navLinks?.map((link: any) => (
       <a href={link.url} class="nav-link text-sm font-bold uppercase tracking-widest">{link.label}</a>
     ))}
